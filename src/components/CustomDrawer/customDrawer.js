@@ -16,22 +16,29 @@ import {
 } from 'react-native-responsive-screen';
 import {styles} from '../../styles/GeneralStyle';
 import {style} from '../Header/headerStyle';
-import Survey from '../../../assets/images/Survey'
-import Resources from '../../../assets/images/resources'
-import Plugin from '../../../assets/images/plugin'
-import BriefCase from '../../../assets/images/briefcase'
-import Setting from '../../../assets/images/setting'
-import Logout from '../../../assets/images/logout'
+import Survey from '../../../assets/images/Survey';
+import Resources from '../../../assets/images/resources';
+import Plugin from '../../../assets/images/plugin';
+import BriefCase from '../../../assets/images/briefcase';
+import Setting from '../../../assets/images/setting';
+import Logout from '../../../assets/images/logout';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {COMPANY, USER} from '../../redux/Reducers/AuthReducer';
-import PEOPLE from '../../../assets/images/PEOPLE'
-import DrawerGoal from '../../../assets/images/DrawerGoal'
-import { PoppinsBold, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import PEOPLE from '../../../assets/images/PEOPLE';
+import DrawerGoal from '../../../assets/images/DrawerGoal';
+import {
+  PoppinsBold,
+  PoppinsRegular,
+  PoppinsSemiBold,
+} from '../../../assets/fonts/Fonts';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Login} from '../../redux/Actions/AuthAction';
 
 const CustomDrawer = props => {
   const company = useSelector(COMPANY);
+  const dispatch = useDispatch();
 
   const userData = useSelector(USER);
   const navigation = useNavigation();
@@ -46,6 +53,14 @@ const CustomDrawer = props => {
       routes: props.state.routes.filter(route => route.name !== 'Home'),
     },
   };
+
+  const Logoutt =async()=> {
+    console.log("logouuttt");
+    await AsyncStorage.removeItem('user');
+    dispatch(Login({}));
+    navigation.navigate('login');
+  };
+
   return (
     <View
       style={{
@@ -71,7 +86,7 @@ const CustomDrawer = props => {
           /> */}
           <Image
             source={{
-              uri: `https://onboard-backendd.herokuapp.com/${company?.profilePic}`,
+              uri: `https://ensemble-backendd.herokuapp.com/${company?.profilePic}`,
             }}
             style={{height: 40, width: 46, marginRight: wp('3%')}}
             resizeMode="contain"
@@ -91,7 +106,7 @@ const CustomDrawer = props => {
           }}>
           <Image
             source={{
-              uri: `https://onboard-backendd.herokuapp.com/${userData?.profilePic}`,
+              uri: `https://ensemble-backendd.herokuapp.com/${userData?.profilePic}`,
             }}
             style={{borderRadius: 23, marginBottom: 10, height: 50, width: 50}}
           />
@@ -125,69 +140,75 @@ const CustomDrawer = props => {
             paddingTop: 10,
           }}></View>
 
-          <View>
+        <View>
+          <TouchableOpacity
+            style={style.drawerTabs}
+            onPress={() => navigation.navigate('Teams')}>
+            <View style={style.tabImage}>
+              {/* <Image source={blackPeople}  /> */}
+              <PEOPLE />
+            </View>
+            <Text style={style.tabText}>People</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs} onPress={()=>navigation.navigate('Teams')} >
-          <View style={style.tabImage}>
-          {/* <Image source={blackPeople}  /> */}
-          <PEOPLE/>
-          </View>
-          <Text style={style.tabText}>People</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={style.drawerTabs}
+            onPress={() => navigation.navigate('Goals')}>
+            <View style={style.tabImage}>
+              {/* <Image source={drawerGoals}  /> */}
+              <DrawerGoal />
+            </View>
+            <Text style={style.tabText}>Goals</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs} onPress={()=>navigation.navigate('Goals')}>
-        <View style={style.tabImage}>
-          {/* <Image source={drawerGoals}  /> */}
-          <DrawerGoal/>
-          </View>
-          <Text style={style.tabText}>Goals</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={style.drawerTabs}
+            onPress={() => navigation.navigate('Surveys')}>
+            <View style={style.tabImage}>
+              {/* <Image source={drawerSurvey}  /> */}
+              <Survey />
+            </View>
+            <Text style={style.tabText}>Survey</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs} onPress={()=>navigation.navigate('Surveys')}>
-        <View style={style.tabImage}>
-          {/* <Image source={drawerSurvey}  /> */}
-          <Survey/>
-          </View>
-          <Text style={style.tabText}>Survey</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={style.drawerTabs}>
+            <View style={style.tabImage}>
+              {/* <Image source={blackResources}  /> */}
+              <Resources />
+            </View>
+            <Text style={style.tabText}>Resources</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs}>
-        <View style={style.tabImage}>
-          {/* <Image source={blackResources}  /> */}
-          <Resources/>
-          </View>
-          <Text style={style.tabText}>Resources</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={style.drawerTabs}>
+            <View style={style.tabImage}>
+              {/* <Image source={blackFun}  /> */}
+              <Plugin />
+            </View>
+            <Text style={style.tabText}>Fun stuff</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs}>
-        <View style={style.tabImage}>
-          {/* <Image source={blackFun}  /> */}
-          <Plugin/>
-          </View>
-          <Text style={style.tabText}>Fun stuff</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={style.drawerTabs}>
+            <View style={style.tabImage}>
+              {/* <Image source={blackBriefCase}  /> */}
+              <BriefCase />
+            </View>
+            <Text style={style.tabText}>Professional Development</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.drawerTabs}>
-        <View style={style.tabImage}>
-          {/* <Image source={blackBriefCase}  /> */}
-          <BriefCase/>
-          </View>
-          <Text style={style.tabText}>Professional Development</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={style.drawerTabs} onPress={()=>navigation.navigate('Settings')}>
-        <View style={style.tabImage}>
-          {/* <Image source={blackSetting}  /> */}
-          <Setting/>
-          </View>
-          <Text style={style.tabText}>Settings</Text>
-        </TouchableOpacity>
-        
+          <TouchableOpacity
+            style={style.drawerTabs}
+            onPress={() => navigation.navigate('Settings')}>
+            <View style={style.tabImage}>
+              {/* <Image source={blackSetting}  /> */}
+              <Setting />
+            </View>
+            <Text style={style.tabText}>Settings</Text>
+          </TouchableOpacity>
         </View>
       </DrawerContentScrollView>
       <View style={{padding: wp('4%')}}>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={()=>Logoutt()}
           style={{
             paddingVertical: wp('4%'),
             borderWidth: 1,
@@ -201,7 +222,7 @@ const CustomDrawer = props => {
               justifyContent: 'center',
             }}>
             {/* <Image source={blackLogout} /> */}
-            <Logout/>
+            <Logout />
             <Text
               style={{
                 fontSize: moderateScale(13),

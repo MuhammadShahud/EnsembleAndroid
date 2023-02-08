@@ -113,6 +113,11 @@ const MainStack = () => {
         component={SuccessGoal}
         options={{headerShown: false}}
       />
+      {/* <Main.Screen
+        name="splash"
+        component={Splash}
+        options={{headerShown: false}}
+      /> */}
        {/* <Main.Screen
         name="calender"
         component={Calen}

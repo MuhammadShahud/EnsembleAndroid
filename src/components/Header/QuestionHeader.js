@@ -23,7 +23,7 @@ const QuestionHeader = (props) => {
 
       <View style={styles.header}>
         <Image  source={{
-                uri: `https://onboard-backendd.herokuapp.com/${company?.profilePic}`,
+                uri: `https://ensemble-backendd.herokuapp.com/${company?.profilePic}`,
               }}               style={{height:40, width:46}}
               resizeMode="contain" />
         <Text style={styles.text}>{company?.companyName} </Text>

@@ -26,7 +26,7 @@ const EditProfile = props => {
           <View style={{flexDirection: 'row'}}>
             <Image
               source={{
-                uri: `https://onboard-backendd.herokuapp.com/${userData.profilePic}`,
+                uri: `https://ensemble-backendd.herokuapp.com/${userData.profilePic}`,
               }}
               style={styles.editImage}
             />

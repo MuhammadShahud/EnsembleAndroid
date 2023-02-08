@@ -88,7 +88,7 @@ const EditButtons = props => {
             </View>
           ))}
 
-          {props.addIcon ? (
+          {props.addIcon && !show ? (
             <TouchableOpacity
               onPress={inputBox}
               style={{justifyContent: 'center'}}>

@@ -18,7 +18,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {ResetPass} from '../../redux/Actions/AuthAction';
+import {FlashMessage, ResetPass} from '../../redux/Actions/AuthAction';
 import {PRIMARYCOLOR} from '../../../assets/colors/colors';
 import {appLogo, greentick, tickLogo, yellowLine} from '../../../assets/images/images';
 import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
@@ -63,6 +63,7 @@ const ResetPassword = props => {
 
 
   const submitLogin = () => {
+    if(email,newPassword,confirmPassword){
     const newObj = {
       email,
       newPassword,
@@ -70,6 +71,12 @@ const ResetPassword = props => {
     };
     console.log(newObj, 'newObj');
     dispatch(ResetPass(newObj, setModalVisible));
+  }else{
+    FlashMessage({
+      message: "Must fill all the fields",
+      type: 'danger',
+    });
+  }
   };
 
   return (

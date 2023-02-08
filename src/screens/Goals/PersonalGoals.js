@@ -22,18 +22,12 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Button from '../../components/Button';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
-  awardLogo,
-  checkMark,
-  loading,
-  medal,
-  medall,
+
   notiLogo,
-  seerch,
   timeLogo,
 } from '../../../assets/images/images';
 import {ButtonColor} from '../../../assets/colors/colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {GetGoals} from '../../redux/Actions/AuthAction';
 import {GOALS, USER} from '../../redux/Reducers/AuthReducer';
 import {
   FiraSansBold,
@@ -54,7 +48,7 @@ const PersonalGoals = () => {
 
   const refRBSheet = useRef();
   const height = Dimensions.get('screen').height;
-  let goalsData = [];
+  let goalsData = useSelector(GOALS);
   goalsData.reverse();
   console.log('goalsData', goalsData[0]?.dueDate.split('T')[0].split('-'));
   const [visible, setVisible] = useState(false);
@@ -130,9 +124,10 @@ const PersonalGoals = () => {
           />
         </View>
 
-        <Text style={styles.personalText}>Personal Goals</Text>
 
         {show? (
+          <>
+                  <Text style={styles.personalText}>Personal Goals</Text>
           <FlatList
             style={styles.flatList}
             data={goalsData}
@@ -146,7 +141,7 @@ const PersonalGoals = () => {
                     {/* <Image source={awardLogo} /> */}
                     <Awardd/>
                   </View>
-                  <View>
+                  <View style={{width:'60%'}}>
                     <Text style={styles.title}>{item?.goal}</Text>
 
                     <View style={styles.dateView}>
@@ -165,6 +160,8 @@ const PersonalGoals = () => {
               );
             }}
           />
+          </>
+
         ) : (
           <FlatList
             style={styles.flatListCompleted}

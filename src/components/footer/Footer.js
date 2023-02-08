@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     ensemble:{
       // fontWeight:'bold',
-      color:'#000000',
+      color:'#8C8C8C',
       fontSize:moderateScale(20),
       fontFamily:PoppinsSemiBold
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
       
     },
     powered:{
-      color:'black',
+      color:'#8C8C8C',
       fontFamily:PoppinsRegular,
       marginBottom:verticalScale(-5),
     }

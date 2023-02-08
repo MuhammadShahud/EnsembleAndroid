@@ -24,10 +24,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { ButtonColor } from '../../../assets/colors/colors';
 import GoalUpdateModaal from '../../components/Modaal/GoalUpdateModaal';
 import { addIcon, cross } from '../../../assets/images/images';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PatchGoal } from '../../redux/Actions/AuthAction';
 import { PoppinsMedium, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { USER } from '../../redux/Reducers/AuthReducer';
 
 const EditGoal = props => {
   const goal = props.route.params.goal;
@@ -39,6 +40,7 @@ const EditGoal = props => {
   const [data, setData] = React.useState(goal.steps);
   const dispatch = useDispatch();
   console.log('goalll', goalInput, 'dataaaa');
+  const userData = useSelector(USER);
 
   const user =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWh1ZEBwbHVtdHJlZWdyb3VwLm5ldCIsImlhdCI6MTY2NDU2NzExNSwiZXhwIjoxNjk2MTAzMTE1fQ.bG940Pi5-Tf6CX4AMxLSZ2vLHZJr3XfgkBsIRvtkNeA';
@@ -61,7 +63,7 @@ const EditGoal = props => {
     console.log('indexEnd5', goal);
 
     if (noDate === true) {
-      dispatch(PatchGoal(goal, navigation, null, user, goal.id, setVisible))
+      dispatch(PatchGoal(goal, navigation, null, user, goal.id, setVisible, userData.id))
 
     } else {
       navigation.navigate('calender', { goal, edit: true });
@@ -239,7 +241,7 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     fontFamily: PoppinsMedium,
-    marginVertical: verticalScale(100),
+    marginVertical: verticalScale(50),
     width: '38%',
     borderBottomWidth: 1,
     marginLeft: '50%',

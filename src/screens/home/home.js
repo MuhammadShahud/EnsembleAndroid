@@ -64,13 +64,14 @@ export default function Home() {
         }
       });
   }, []);
+ 
 
   useFocusEffect(
     useCallback(() => {
       dispatch(GetGoals(token, userData.id));
       dispatch(GetCompany(userData?.companyId));
       dispatch(GetTeam(userData?.teamId));
-      dispatch(GetSurveys());
+      dispatch(GetSurveys(userData.companyId));
       dispatch(GetNoti());
     }, []),
   );
@@ -88,7 +89,7 @@ export default function Home() {
             </View>
             <Image
               source={{
-                uri: `https://onboard-backendd.herokuapp.com/${userData?.profilePic}`,
+                uri: `https://ensemble-backendd.herokuapp.com/${userData?.profilePic}`,
               }}
               style={{borderRadius: 32, height: 64, width: 64}}
             />

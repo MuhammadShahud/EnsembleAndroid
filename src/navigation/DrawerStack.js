@@ -31,6 +31,7 @@ import People from '../../assets/images/PEOPLE'
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/home/home';
+import { AuthStack } from './MainStack';
 
 
 const Drawer = createDrawerNavigator();
@@ -118,6 +119,10 @@ const DrawerStack = () => {
       <Drawer.Screen name="duedate" component={GoalsDueDate} />
       <Drawer.Screen name="editgoal" component={EditGoal} />
       <Drawer.Screen name="calender" component={Calen} />
+      <Drawer.Screen
+        name="auth"
+        component={AuthStack}
+      />
       <Drawer.Screen
         name="goals"
         component={PersonalGoals}

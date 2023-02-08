@@ -28,7 +28,7 @@ const Header = props => {
         /> */}
         <Image
           source={{
-            uri: `https://onboard-backendd.herokuapp.com/${company?.profilePic}`,
+            uri: `https://ensemble-backendd.herokuapp.com/${company?.profilePic}`,
           }}
           style={{
             height: 40,

@@ -86,7 +86,7 @@ const Teams = () => {
                     }>
                     <Image
                       source={{
-                        uri: `https://onboard-backendd.herokuapp.com/${item.profilePic}`,
+                        uri: `https://ensemble-backendd.herokuapp.com/${item.profilePic}`,
                       }}
                       style={styles.teamImage}
                     />
@@ -115,7 +115,7 @@ const Teams = () => {
                     }>
                     <Image
                       source={{
-                        uri: `https://onboard-backendd.herokuapp.com/${item.profilePic}`,
+                        uri: `https://ensemble-backendd.herokuapp.com/${item.profilePic}`,
                       }}
                       style={styles.teamImage}
                     />
@@ -147,7 +147,7 @@ const Teams = () => {
                     <View>
                       <Image
                         source={{
-                          uri: `https://onboard-backendd.herokuapp.com/${item.profilePic}`,
+                          uri: `https://ensemble-backendd.herokuapp.com/${item.profilePic}`,
                         }}
                         style={styles.colleagueImage}
                       />
@@ -155,7 +155,7 @@ const Teams = () => {
                     <View style={styles.introView}>
                       <Image source={newImage} style={styles.newImage} />
                       <Text style={styles.Name1}>{item.name}</Text>
-                      <View
+                      {/* <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Image source={thunder} />
                         <Text style={styles.intrest}>
@@ -166,7 +166,7 @@ const Teams = () => {
                         style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Image source={online} style={{marginLeft: 1}} />
                         <Text style={styles.status}>Online</Text>
-                      </View>
+                      </View> */}
                     </View>
                     <ProfileButton user={item} />
                   </View>
@@ -184,7 +184,7 @@ const Teams = () => {
                     <View>
                       <Image
                         source={{
-                          uri: `https://onboard-backendd.herokuapp.com/${item.profilePic}`,
+                          uri: `https://ensemble-backendd.herokuapp.com/${item.profilePic}`,
                         }}
                         style={styles.colleagueImage}
                       />
@@ -192,18 +192,18 @@ const Teams = () => {
                     <View style={styles.introView}>
                       <Image source={newImage} style={styles.newImage} />
                       <Text style={styles.Name1}>{item.name}</Text>
-                      <View
+                      {/* <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Image source={thunder} />
                         <Text style={styles.intrest}>
                           You both have similar intrest
                         </Text>
-                      </View>
-                      <View
+                      </View> */}
+                      {/* <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Image source={online} style={{marginLeft: 1}} />
                         <Text style={styles.status}>Online</Text>
-                      </View>
+                      </View> */}
                     </View>
                     <ProfileButton user={item} />
                   </View>

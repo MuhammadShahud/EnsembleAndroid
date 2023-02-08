@@ -13,7 +13,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useDispatch, useSelector} from 'react-redux';
 import {USER} from '../../redux/Reducers/AuthReducer';
 import {FlashMessage, PatchUser} from '../../redux/Actions/AuthAction';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const About = props => {
   const [selected, setSelected] = React.useState('');

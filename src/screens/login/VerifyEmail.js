@@ -16,7 +16,7 @@ import { appLogo, yellowLine } from '../../../assets/images/images'
 import PrimaryButton from '../../components/PrimaryButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import { ForgetPass } from '../../redux/Actions/AuthAction'
+import { FlashMessage, ForgetPass } from '../../redux/Actions/AuthAction'
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
 import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -32,13 +32,19 @@ const VerifyEmail = () => {
 
 
   const submitLogin = () => {
+    if(email){
     const newObj = {
       email,
     }
     console.log("workingggg", newObj);
 
     dispatch(ForgetPass(newObj, navigation, 'verificationcode'))
-
+  }else{
+    FlashMessage({
+      message: "Email is required",
+      type: 'danger',
+    });
+  }
   }
 
   return (

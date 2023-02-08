@@ -21,7 +21,7 @@ import { style } from './loginStyle';
 import { styles } from '../../styles/GeneralStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { LoginFunction } from '../../redux/Actions/AuthAction';
+import { FlashMessage, LoginFunction } from '../../redux/Actions/AuthAction';
 import { scale, verticalScale } from 'react-native-size-matters';
 import Button from '../../components/Button';
 import Eyee from '../../../assets/images/eyee'
@@ -47,6 +47,7 @@ const Login = () => {
   };
 
   const submitLogin = () => {
+    if(email && password){
     const newObj = {
       email,
       password,
@@ -54,6 +55,12 @@ const Login = () => {
     console.log('workingggg', newObj);
 
     dispatch(LoginFunction(newObj, navigation, 'name'));
+  }else{
+    FlashMessage({
+      message: "Must fill all the fields",
+      type: 'danger',
+    });
+  }
   };
 
   return (

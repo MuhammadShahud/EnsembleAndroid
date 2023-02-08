@@ -9,25 +9,19 @@ import {
 import React from 'react';
 import Header from '../../components/Header/header';
 import {
-  FiraSansRegular,
-  InterRegular,
-  OutfitBold,
   OutfitMedium,
-  OutfitRegular,
   PoppinsMedium,
   PoppinsRegular,
   PoppinsSemiBold,
 } from '../../../assets/fonts/Fonts';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { ButtonColor } from '../../../assets/colors/colors';
-import { awardLogo, bag, HR, rightArrow } from '../../../assets/images/images';
-import { useNavigation } from '@react-navigation/native';
-import Home from '../home/home';
-import { useSelector } from 'react-redux';
-import { NOTI } from '../../redux/Reducers/AuthReducer';
-import HRR from '../../../assets/images/HRR'
-import BlueBrief from '../../../assets/images/BlueBrief'
-import BlueAward from '../../../assets/images/BlueAward'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {ButtonColor} from '../../../assets/colors/colors';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {NOTI} from '../../redux/Reducers/AuthReducer';
+import HRR from '../../../assets/images/HRR';
+import BlueBrief from '../../../assets/images/BlueBrief';
+import BlueAward from '../../../assets/images/BlueAward';
 
 const Notification = () => {
   const navigation = useNavigation();
@@ -64,17 +58,13 @@ const Notification = () => {
     },
   ];
 
-  const onClick = (item) => {
-
-    item.title === "Complete Your Goal" ?
-      navigation.navigate('Goals') :
-      item.title === "Start a New Survey" ?
-        navigation.navigate('Surveys') :
-        navigation.navigate('welcome',{data:item})
-
-
-
-  }
+  const onClick = item => {
+    item.title === 'Complete Your Goal'
+      ? navigation.navigate('Goals')
+      : item.title === 'Start a New Survey'
+      ? navigation.navigate('Surveys')
+      : navigation.navigate('welcome', {data: item});
+  };
 
   return (
     <View>
@@ -87,13 +77,15 @@ const Notification = () => {
 
           data={notiToday}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return (
               <TouchableOpacity
-                onPress={()=>{onClick(item)}}
+                onPress={() => {
+                  onClick(item);
+                }}
                 // onPress={()=>navigation.navigate('welcome')}
                 style={styles.todayView}>
-                <View >
+                <View>
                   {/* <Image
                     source={
                       item.title === 'HR ANNOUNCEMENT'
@@ -103,7 +95,13 @@ const Notification = () => {
                           : bag
                     }
                   /> */}
-                  {item.title==='HR ANNOUNCEMENT'? <HRR/>: item.title==='Complete Your Goal' ? <BlueAward/>:<BlueBrief/>}
+                  {item.title === 'HR ANNOUNCEMENT' ? (
+                    <HRR />
+                  ) : item.title === 'Complete Your Goal' ? (
+                    <BlueAward />
+                  ) : (
+                    <BlueBrief />
+                  )}
                 </View>
                 <View style={styles.setup}>
                   <Text style={styles.flatText}>{item.text}</Text>

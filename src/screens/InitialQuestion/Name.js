@@ -15,7 +15,6 @@ import Button from '../../components/Button';
 import { ButtonColor } from '../../../assets/colors/colors';
 import Dashes from '../../components/Question Text/dashes';
 // import Twofingers from '../../../assets/images/twofingers'
-import Twofingers from '../../../assets/images/twofingers'
 
 
 import {
@@ -25,8 +24,6 @@ import {
 } from '../../../assets/fonts/Fonts';
 import { ScrollView } from 'react-native';
 import { FlashMessage } from '../../redux/Actions/AuthAction';
-import { TextInput } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Name = () => {
   const navigation = useNavigation();

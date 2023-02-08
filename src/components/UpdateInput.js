@@ -12,7 +12,7 @@ const UpdateInput = props => {
         <TextInput
           multiline={true}
           onChangeText={props.onChangeText}
-          style={styles.inputFieldView}
+          style={styles.inputField}
           value={props.placeholder}
         />
       {props.line ? null : (

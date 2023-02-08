@@ -10,20 +10,30 @@ import {useNavigation} from '@react-navigation/native';
 import {Checkbox} from 'react-native-paper';
 import {ButtonColor} from '../../../assets/colors/colors';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {PatchSurveys} from '../../redux/Actions/AuthAction';
 import Sketch from '../../../assets/images/Sketch';
+import { USER } from '../../redux/Reducers/AuthReducer';
 
 const Review = props => {
   const [checked, setChecked] = React.useState(0);
   const survey = props.route.params.survey;
   const dispatch = useDispatch();
+  const user = useSelector(USER)
   const navigation = useNavigation();
   const forward = () => {
     const response = survey.response;
     response.push(checked);
+    const obj ={
+      user:{
+        id: user.id
+      },
+      update:{
+        response:response
+      }
+    }
     dispatch(
-      PatchSurveys({response: response}, navigation, 'surveysuceed', survey.id),
+      PatchSurveys(obj, navigation, 'surveysuceed', survey.id),
     );
     // navigation.navigate('surveysuceed')
   };
