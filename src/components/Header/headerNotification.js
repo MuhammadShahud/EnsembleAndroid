@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, TouchableOpacity, View, Image } from 'react-native'
-import { Icon } from 'react-native-elements'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp

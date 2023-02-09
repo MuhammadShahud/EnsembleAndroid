@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, {forwardRef} from 'react';
 import QuestionHeader from '../../components/Header/QuestionHeader';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -9,25 +9,51 @@ import {
 } from 'react-native-size-matters';
 import {ButtonColor} from '../../../assets/colors/colors';
 import Button from '../../components/Button';
-import {picture} from '../../../assets/images/images';
+import {PatchProfilePic} from '../../redux/Actions/AuthAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {USER} from '../../redux/Reducers/AuthReducer';
 
 const RetakePhoto = props => {
   const navigation = useNavigation();
+  const userData = useSelector(USER);
+  const dispatch = useDispatch();
   const urii = props.route.params.uri;
   const uri = urii?.assets && urii.assets[0].uri;
   console.log('uriiii', urii, 'uri', uri);
+
+  const createFormData = result => {
+ 
+console.log("result",result);
+    let formData = new FormData();
+    formData.append('file',  {
+      name: result.fileName,
+      type: result.type,
+      uri:
+        Platform.OS === 'android' ? result.uri : result.uri.replace('file://', ''),
+    });
+
+    return formData;
+  };
+
+  const forward = () => {
+    const formData = createFormData(urii.assets[0]);
+    console.log('formData', formData._parts);
+    dispatch(PatchProfilePic(formData, navigation, 'drawer', userData.id));
+    // navigation.navigate('drawer');
+  };
+
   return (
     <View style={styles.mainView}>
       <View>
         <QuestionHeader />
 
         <View style={styles.buttonView}>
-          <Image source={uri ? {uri:uri} : null} style={styles.uriImage} />
+          <Image source={uri ? {uri: uri} : null} style={styles.uriImage} />
 
           <Button
             buttonStyle={styles.button}
             title={'Continue'}
-            onPress={() => navigation.navigate('drawer')}
+            onPress={() => forward()}
           />
           <Button
             buttonStyle={styles.secondButton}

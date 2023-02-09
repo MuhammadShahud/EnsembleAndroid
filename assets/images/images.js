@@ -18,6 +18,7 @@ export const pp = require('./pp.png')
 export const findPeople = require('./findPeople.png')
 export const task = require('./task.png')
 export const medal = require('./medal.png')
+export const medall = require('./medall.svg')
 export const greenHome = require('./greenHome.png')
 export const tabGoal = require('./tabGoal.png')
 export const tabSurvey = require('./tabSurvey.png')
@@ -74,6 +75,33 @@ export const accessiblity = require('./accessiblity.png')
 export const terms = require('./terms.png')
 export const lock = require('./lock.png')
 export const right = require('./right.png')
+export const blackHome = require('./blackHome.png')
+export const blackGoals = require('./blackGoals.png')
+export const blackTeams = require('./blackTeams.png')
+export const blackSurvey = require('./blackSurvey.png')
+export const blackBriefCase = require('./blackBriefCase.png')
+export const blackPeople = require('./blackPeople.png')
+export const drawerGoals = require('./drawerGoals.png')
+export const drawerSurvey = require('./drawerSurvey.png')
+export const blackResources = require('./blackResources.png')
+export const blackSetting = require('./blackSetting.png')
+export const blackFun = require('./blackFun.png')
+export const blackLogout = require('./blackLogout.png')
+export const filledHome = require('./filledHome.png')
+export const filledGoals = require('./filledGoals.png')
+export const filledSurvey = require('./filledSurvey.png')
+export const filledTeam = require('./filledTeam.png')
+export const bag = require('./bag.png')
+export const HR = require('./HR.png')
+export const victory = require('./victory.png')
+export const seerch = require('./seerch.png')
+export const greentick = require('./greentick.png')
+export const communicationn = require('./communicationn.svg')
+
+
+
+
+
 
 
 

@@ -19,7 +19,15 @@ import {useNavigation} from '@react-navigation/native';
 import {ButtonColor} from '../../../assets/colors/colors';
 import {addIcon, cross} from '../../../assets/images/images';
 import DashesGoals from '../../components/Goals/dashesGoals';
+import Cros from '../../../assets/images/Cros'
+import AdIcon from '../../../assets/images/AdIcon'
+import { PoppinsBold, PoppinsMedium, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
+import { useSelector } from 'react-redux';
+import { USER } from '../../redux/Reducers/AuthReducer';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Entypo from 'react-native-vector-icons/Entypo'
+
+
 
 const NewGoal = () => {
   const navigation = useNavigation();
@@ -28,8 +36,11 @@ const NewGoal = () => {
   const [indexes, setIndex] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [goalInput, setGoalInput] = React.useState('')
+  const userData = useSelector(USER);
+
 
   const toCalendar = () => {
+  
     let array = [];
 
     data.map((d, i) => {
@@ -45,10 +56,12 @@ const NewGoal = () => {
     });
     goal.steps = array;
     goal.goal = goalInput;
+    goal.employeeId = userData.id;
+    goal.companyId = userData.companyId;
     console.log('indexEnd2', goal);
 
     navigation.navigate('calender',{goal});
-
+    
   };
 
   let goal = {
@@ -56,22 +69,22 @@ const NewGoal = () => {
     dueDate: '',
     steps: [],
   };
-
-
-
+  
+  
+  
   const Remove_Item = ind => {
     const inititial_state = data.filter((item, index) => {
       return index != ind;
     });
     setData(inititial_state);
   };
-
+  
   const addItem = async () => {
     setData(prev => [...prev, {title: value}]);
     setAddStep(false);
     setValue('');
   };
-
+  
   const radioValue = ind => {
     if (indexes.includes(ind)) {
       const filtered = indexes.filter(e => e !== ind);
@@ -86,6 +99,7 @@ const NewGoal = () => {
       <View>
         <Header />
         <DashesGoals color={1}/>
+
         <View style={styles.firstView}>
           <Text style={styles.goal}>Set a New Goal</Text>
           <Text style={styles.setGoal}>Lets set your new goal</Text>
@@ -93,6 +107,7 @@ const NewGoal = () => {
             style={styles.input}
             onChangeText={e => setGoalInput(e)}
             placeholder="Type your new goal..."
+            placeholderTextColor={'#BBBBBB'}
           />
           <Text style={styles.planText}>
             Plan the steps to achieve your goal
@@ -111,21 +126,21 @@ const NewGoal = () => {
                       color="black"
                       value="first"
                       status={
-                        indexes.includes(item.title) ? 'checked' : 'unchecked'
+                       'unchecked'
                       }
                       onPress={() => radioValue(item.title)}
-                    />
+                      />
                     <Text style={styles.step}>{item.title}</Text>
                   </View>
                   <TouchableOpacity onPress={() => Remove_Item(index)}>
-                    <Image source={cross} />
+                    <Cros/>
+                    {/* <Image source={cross} /> */}
                     {/* <Entypo name='cross' size={20} style={styles.crossIcon} /> */}
                   </TouchableOpacity>
                 </View>
               );
             }}
           />
-
           {addStep ? (
             <View style={styles.textInputView}>
               <RadioButton
@@ -133,26 +148,27 @@ const NewGoal = () => {
                 value="first"
                 status={indexes.includes() ? 'checked' : 'unchecked'}
                 onPress={() => radioValue()}
-              />
+                />
               <TextInput
                 placeholder="Add"
                 onChangeText={text => setValue(text)}
                 value={value}
                 style={styles.stepInput}
-              />
+                />
               <TouchableOpacity onPress={addItem}>
                 <AntDesign name="check" size={20} style={styles.checkIcon} />
               </TouchableOpacity>
             </View>
           ) : (
             <TouchableOpacity
-              onPress={() => setAddStep(true)}
-              style={styles.icon}>
+            onPress={() => setAddStep(true)}
+            style={styles.icon}>
               {/* <Ionicons name='add-circle-outline'
                                 size={25}
                                 style={styles.circleIcon}
-                            /> */}
-              <Image source={addIcon} />
+                              /> */}
+              {/* <Image source={addIcon} /> */}
+              <AdIcon/>
               <Text style={styles.anotherstep}>Add another step</Text>
             </TouchableOpacity>
           )}
@@ -176,8 +192,8 @@ const styles = StyleSheet.create({
   },
   goal: {
     color: 'black',
-    fontSize: moderateScale(20),
-    fontWeight: 'bold',
+    fontSize: moderateScale(24),
+    fontFamily:PoppinsSemiBold,
     paddingHorizontal: scale(20),
   },
   firstView: {
@@ -186,6 +202,9 @@ const styles = StyleSheet.create({
   setGoal: {
     color: 'black',
     paddingHorizontal: scale(20),
+    fontFamily:PoppinsRegular,
+    fontSize:moderateScale(14),
+    marginTop:verticalScale(-3)
   },
   input: {
     // paddingHorizontal:scale(20),
@@ -205,7 +224,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
     color: 'black',
     fontSize: moderateScale(25),
-    fontWeight: 'bold',
+    fontFamily:PoppinsSemiBold,
     paddingHorizontal: scale(20),
   },
   radioView: {
@@ -230,22 +249,18 @@ const styles = StyleSheet.create({
   anotherstep: {
     color: 'black',
     paddingLeft: scale(5),
+    color:'#696969',
+    fontFamily:PoppinsRegular
   },
   stepInput: {
-    // backgroundColor: 'white',
     color: 'black',
     width: '80%',
-    // borderWidth: 1,
     borderRadius: moderateScale(20),
-    // borderColor: 'red',
-    // marginHorizontal:10,
     paddingLeft: 0,
   },
   textInputView: {
-    // borderWidth: 1,
     marginRight: scale(20),
     marginLeft: scale(20),
-    // marginTop:20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

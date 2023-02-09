@@ -6,13 +6,14 @@ import {ButtonColor} from '../../../assets/colors/colors';
 import Header from '../../components/Header/header';
 import {useNavigation} from '@react-navigation/native';
 import { checkLogo } from '../../../assets/images/images'
-
+import { PoppinsMedium, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
+import BlackCheck from '../../../assets/images/BlackCheck'
 
 const SuccessGoal = () => {
   const navigation = useNavigation();
   const navigate = () => {
     console.log('shahudd');
-    navigation.navigate('drawer');
+    navigation.navigate('tab');
   };
   const navigateGoal = () => {
     console.log('asdadasdas');
@@ -25,7 +26,9 @@ const SuccessGoal = () => {
         <Text style={styles.yayy}>YAYY!</Text>
         <Text style={styles.newGoal}>You have set a new goal!</Text>
 
-        <Image style={styles.image} source={checkLogo} />
+        {/* <Image style={styles.image} source={checkLogo} /> */}
+        <BlackCheck style={styles.image}/>
+
         <View style={styles.buttonView}>
           <Button
             title="Home"
@@ -55,19 +58,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: ButtonColor,
     fontSize: moderateScale(50),
-    fontWeight: 'bold',
-    letterSpacing:6
+    // fontWeight: 'bold',
+    fontFamily:PoppinsSemiBold,
+    fontSize:moderateScale(74)
   },
   newGoal: {
     textAlign: 'center',
     color: 'black',
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(18),
+    fontFamily:PoppinsRegular,
     paddingTop: verticalScale(10),
   },
   homeButton: {
     backgroundColor: ButtonColor,
     width: '85%',
     borderRadius: moderateScale(30),
+    fontFamily:PoppinsMedium,
+    fontSize:moderateScale(16)
   },
   goalButton: {
     width: '85%',
@@ -77,9 +84,12 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     marginTop: verticalScale(10),
     borderRadius: moderateScale(30),
+    fontFamily:PoppinsMedium,
+    fontSize:moderateScale(16)
+
   },
   buttonView: {
-    marginTop: verticalScale(50),
+    marginTop: verticalScale(40),
   },
   image: {
     alignSelf: 'center',

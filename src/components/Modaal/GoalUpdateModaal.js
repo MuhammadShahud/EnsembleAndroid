@@ -6,6 +6,7 @@ import {ButtonColor} from '../../../assets/colors/colors';
 import Button from '../Button';
 import {frameLogo} from '../../../assets/images/images';
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { PoppinsBold, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
 
 const SetGoalModaal = props => {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   modalView: {
     // margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
     // padding: 25,
     paddingVertical: verticalScale(20),
     height: '45%',
@@ -70,8 +71,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: moderateScale(20),
+    paddingHorizontal: scale(10),
+    paddingVertical:verticalScale(10),
     elevation: 2,
   },
   buttonOpen: {
@@ -82,15 +84,16 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily:PoppinsBold,
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
     textAlign: 'center',
     color: '#2B2F86',
     fontSize: moderateScale(20),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily:PoppinsBold,
     paddingHorizontal: scale(10),
   },
   imageView: {
@@ -111,11 +114,11 @@ const styles = StyleSheet.create({
 
   },
  
-
   text:{
     color:'black',
     fontSize:moderateScale(25),
-    fontWeight:'bold',
+    // fontWeight:'bold',
+    fontFamily:PoppinsSemiBold,
     textAlign:'center',
     marginBottom:verticalScale(10)
   },

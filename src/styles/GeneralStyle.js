@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import { white } from 'react-native-paper/lib/typescript/styles/colors';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { scale } from 'react-native-size-matters';
 import {
   BLUEFONTCOLOR,
   GRAYCOLOR,
@@ -11,7 +11,7 @@ import {
   PURPLECOLOR,
   SECONDARYCOLOR,
 } from '../../assets/colors/colors';
-import { PoppinsSemiBold } from '../../assets/fonts/Fonts';
+import { PoppinsRegular, PoppinsSemiBold } from '../../assets/fonts/Fonts';
 
 export const styles = StyleSheet.create({
  
@@ -30,7 +30,12 @@ export const styles = StyleSheet.create({
   },
   small: {
     fontSize: wp('3.5%'),
-    fontFamily: 'Poppins',
+    fontFamily: PoppinsRegular,
+    textAlign: 'left',
+  },
+  smalls: {
+    fontSize: wp('2.8%'),
+    fontFamily: PoppinsRegular,
     textAlign: 'left',
   },
   absolute: {
@@ -53,19 +58,20 @@ export const styles = StyleSheet.create({
   
   btnBg: {
     width: '100%',
+    // paddingHorizontal:scale(200),
     backgroundColor: SECONDARYCOLOR,
     height: hp('6.5%'),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp('10%'),
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.27,
+    // shadowRadius: 4.65,
+    // elevation: 6,
   },
   btnBgSecondary: {
     width: '100%',

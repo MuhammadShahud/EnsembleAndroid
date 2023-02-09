@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { ButtonColor } from '../../../assets/colors/colors'
+import { PoppinsMedium, PoppinsRegular } from '../../../assets/fonts/Fonts'
 
 const OngoingCompleted = (props) => {
     return (
@@ -37,8 +38,8 @@ const styles = StyleSheet.create({
         backgroundColor: ButtonColor,
         width: '50%',
         alignItems: 'center',
-        borderBottomLeftRadius: 30,
-        borderTopLeftRadius: 30,
+        borderBottomLeftRadius: moderateScale(30),
+        borderTopLeftRadius: moderateScale(30),
         borderWidth: 1,
         borderColor: ButtonColor,
     },
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
         width: '50%',
         alignItems: 'center',
         borderWidth: 1,
-        borderBottomRightRadius: 30,
-        borderTopRightRadius: 30,
+        borderBottomRightRadius: moderateScale(30),
+        borderTopRightRadius: moderateScale(30),
         borderLeftColor: ButtonColor,
         // borderColor:'#9F9F9F'
 
@@ -60,12 +61,17 @@ const styles = StyleSheet.create({
     },
     whiteText: {
         color: 'white',
-        paddingVertical: verticalScale(10)
+        paddingVertical: verticalScale(10),
+        fontFamily:PoppinsMedium,
+        fontSize:moderateScale(9)
     },
     greyText: {
         color: ButtonColor,
         paddingVertical: verticalScale(10),
-        color: '#858585'
+        color: '#858585',
+        fontFamily:PoppinsRegular,
+        fontSize:moderateScale(9)
+
 
 
 

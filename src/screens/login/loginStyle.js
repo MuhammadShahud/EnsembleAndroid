@@ -3,12 +3,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
+import { PoppinsBold } from '../../../assets/fonts/Fonts'
 
 export const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PRIMARYCOLOR
+    backgroundColor: PRIMARYCOLOR,
   },
   innerView: {
     width: wp('100%'),
@@ -24,9 +26,10 @@ export const style = StyleSheet.create({
     marginHorizontal: 'auto',
     width: wp('90%'),
     backgroundColor: '#F5F5F5',
-    margin: 5,
-    borderRadius: 42,
-    paddingLeft: 15
+    marginVertical:verticalScale(5),
+    marginHorizontal:scale(5),
+    borderRadius: moderateScale(40),
+    paddingLeft: scale(15)
   },
   inputContainer: {
     alignItems: 'center',
@@ -36,7 +39,9 @@ export const style = StyleSheet.create({
     borderTopStartRadius: wp('10%'),
     paddingVertical: hp('1.5%'),
     borderTopEndRadius: wp('10%'),
-    flex: 1
+    flex: 1,
+    elevation:3,
+    zIndex:3
   },
   forgotWidth: {
     width: '90%',
@@ -44,29 +49,31 @@ export const style = StyleSheet.create({
     flexDirection: 'row'
   },
   logo: {
-    height: hp('43%'),
+    height: hp('40%'),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   heading: {
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: wp('8%')
+    fontFamily:PoppinsBold,
+    fontSize: wp('10%'),
+    alignSelf:'flex-start',
+    marginHorizontal:scale(20),
   },
   eye :{
 position: 'absolute',
-right: 20,
-top:20,
+right: scale(20),
+top:verticalScale(15),
   },
   firsteye:{
   
       position: 'absolute',
-      right: 20,
-      top:43,
+      right: scale(20),
+      top:verticalScale(43),
         },
   
   btn: {
-    width: wp('80%')
+    width: wp('90%')
   },
   welcomeEnsemble:{}
 })

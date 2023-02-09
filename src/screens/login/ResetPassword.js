@@ -17,10 +17,15 @@ import {
 import PrimaryButton from '../../components/PrimaryButton';
 import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {ResetPass} from '../../redux/Actions/AuthAction';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {FlashMessage, ResetPass} from '../../redux/Actions/AuthAction';
 import {PRIMARYCOLOR} from '../../../assets/colors/colors';
-import {appLogo, yellowLine} from '../../../assets/images/images';
+import {appLogo, greentick, tickLogo, yellowLine} from '../../../assets/images/images';
+import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
+import Eyee from '../../../assets/images/eyee';
+import EyeeSlash from '../../../assets/images/noteyee'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 const ResetPassword = props => {
   const dispatch = useDispatch();
@@ -29,7 +34,9 @@ const ResetPassword = props => {
   const [newPassword, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [passwordVisibility1, setPasswordVisibility1] = useState(true);
   const [rightIcon, setRightIcon] = useState(true);
+  const [rightIcon1, setRightIcon1] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handlePasswordVisibility = () => {
@@ -42,7 +49,21 @@ const ResetPassword = props => {
     }
   };
 
+
+  const handlePasswordVisibility1 = () => {
+    if (rightIcon1 === true) {
+      setRightIcon1(false);
+      setPasswordVisibility1(!passwordVisibility1);
+    } else if (rightIcon1 === false) {
+      setRightIcon1(true);
+      setPasswordVisibility1(!passwordVisibility1);
+    }
+  };
+
+
+
   const submitLogin = () => {
+    if(email,newPassword,confirmPassword){
     const newObj = {
       email,
       newPassword,
@@ -50,6 +71,12 @@ const ResetPassword = props => {
     };
     console.log(newObj, 'newObj');
     dispatch(ResetPass(newObj, setModalVisible));
+  }else{
+    FlashMessage({
+      message: "Must fill all the fields",
+      type: 'danger',
+    });
+  }
   };
 
   return (
@@ -58,7 +85,9 @@ const ResetPassword = props => {
         <Image style={styles.logoStyle} resizeMode="contain" source={appLogo} />
       </View>
 
-      <ScrollView>
+      <ScrollView contentContainerStyle={{height:'150%'}}>
+      {/* <KeyboardAwareScrollView> */}
+      
         <View style={styles.inputContainer}>
           <View>
             <Image source={yellowLine} />
@@ -72,13 +101,13 @@ const ResetPassword = props => {
 
           <View>
             <Text style={styles.confirmPassword}>Password</Text>
-            <View style={{height: hp('1%')}} />
+            <View />
 
             <TextInput
               style={styles.inputField}
               onChangeText={setPassword}
               value={newPassword}
-              placeholder="********************"
+              placeholder=".........................."
               keyboardType="default"
               secureTextEntry={passwordVisibility}
               name={'Password'}
@@ -86,34 +115,48 @@ const ResetPassword = props => {
             <TouchableOpacity
               onPress={handlePasswordVisibility}
               style={styles.firsteye}>
+                <View style={{marginTop:verticalScale(5),marginRight:scale(10)}}>
+
               {rightIcon ? (
-                <Icon name="eye" size={20} />
-              ) : (
-                <Icon name="eye-slash" size={20} />
-              )}
+                <Eyee/>
+                
+                ) : (
+                  <EyeeSlash/>
+                  
+                  )}
+                  </View>
+              
             </TouchableOpacity>
             <View style={{height: hp('4%')}} />
 
             <Text style={styles.confirmPassword}>Confirm Password</Text>
-            <View style={{height: hp('1%')}} />
+            <View  />
             <View>
               <TextInput
                 style={styles.inputField}
                 onChangeText={setConfirmPassword}
                 value={confirmPassword}
-                placeholder="********************"
+                placeholder="..........................."
                 keyboardType="default"
-                secureTextEntry={passwordVisibility}
+                secureTextEntry={passwordVisibility1}
                 name={'Confirm Password'}
-              />
+                />
               <TouchableOpacity
-                onPress={handlePasswordVisibility}
-                style={styles.eye}>
-                {rightIcon ? (
-                  <Icon name="eye" size={20} />
-                ) : (
-                  <Icon name="eye-slash" size={20} />
-                )}
+
+onPress={handlePasswordVisibility1}
+style={styles.eye}>
+                  <View style={{marginTop:verticalScale(5),marginRight:scale(10)}}>
+
+
+                {rightIcon1 ? (
+                  <Eyee/>
+                  ) : (
+                    <EyeeSlash/>
+                    
+                    )}
+                    </View>
+
+
               </TouchableOpacity>
             </View>
             <View style={{height: hp('2%')}} />
@@ -126,10 +169,12 @@ const ResetPassword = props => {
               backgroundColor="#2B2F86"
               color="white"
               onPress={submitLogin}
-            />
+              />
           </View>
         </View>
-        <SuccessModaal successText={'Password Changed Successfully'} backgroundButtonColor='#2B2F86' buttonTitle={'Go Back To Login'}  visible={modalVisible} setVisible={setModalVisible} />
+        <SuccessModaal source={tickLogo} successText={'Password Changed Successfully'} backgroundButtonColor='#2B2F86' buttonTitle={'Go Back To Login'}  visible={modalVisible} setVisible={setModalVisible} />
+              {/* </KeyboardAwareScrollView> */}
+              
       </ScrollView>
     </View>
   );
@@ -151,7 +196,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     alignItems: 'center',
     width: wp('100%'),
-    minHeight: hp('80%'),
+    minHeight: hp('65%'),
     backgroundColor: '#fff',
     borderTopStartRadius: wp('10%'),
     paddingVertical: hp('1.5%'),
@@ -160,7 +205,8 @@ const styles = StyleSheet.create({
   },
   resetPasswordText: {
     alignSelf: 'flex-start',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily:PoppinsSemiBold,
     color: 'black',
     fontSize: wp('6%'),
     paddingHorizontal: scale(25),
@@ -175,31 +221,34 @@ const styles = StyleSheet.create({
   },
   confirmPassword: {
     color: 'black',
-    marginLeft: 10,
+    marginLeft: scale(10),
+    fontFamily:PoppinsRegular,
+    fontSize:moderateScale(14)
   },
 
   firsteye: {
     position: 'absolute',
-    right: 20,
-    top: 43,
+    right: scale(20),
+    top: verticalScale(32),
   },
 
   inputField: {
     marginHorizontal: 'auto',
     width: wp('90%'),
     backgroundColor: '#F5F5F5',
-    margin: 5,
-    borderRadius: 42,
-    paddingLeft: 15,
+    marginHorizontal:scale(5),
+    borderRadius: moderateScale(40),
+    paddingLeft: scale(20),
+    
   },
 
   eye: {
     position: 'absolute',
-    right: 20,
-    top: 20,
+    right: scale(20),
+    top: verticalScale(10),
   },
   btn: {
-    width: wp('80%'),
+    width: wp('90%'),
   },
 });
 export default ResetPassword;

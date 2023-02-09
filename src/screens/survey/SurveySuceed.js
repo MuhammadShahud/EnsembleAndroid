@@ -7,7 +7,7 @@ import Header from '../../components/Header/header';
 import {useNavigation} from '@react-navigation/native';
 import { checkLogo } from '../../../assets/images/images'
 import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
-
+import BlackCheck from '../../../assets/images/BlackCheck'
 
 const SuccessGoal = () => {
   const navigation = useNavigation();
@@ -26,16 +26,20 @@ const SuccessGoal = () => {
         <Text style={styles.yayy}>YAYY!</Text>
         <Text style={styles.newGoal}>Your survey has been submitted!</Text>
 
-        <Image style={styles.image} source={checkLogo} />
+        {/* <Image style={styles.image} source={checkLogo} /> */}
+        
+
+        <BlackCheck style={styles.image}/>
+        
         <View style={styles.buttonView}>
           <Button
             title="Home"
-            onPress={()=>navigation.navigate('home')}
+            onPress={()=>navigation.navigate('Home')}
             buttonStyle={styles.homeButton}
           />
           <Button
             title="Review Survey"
-            onPress={()=>navigation.navigate('review')}
+            onPress={()=>navigation.navigate('Surveys')}
             buttonStyle={styles.goalButton}
           />
         </View>
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily:PoppinsRegular,
     fontSize: moderateScale(16),
-    paddingTop: verticalScale(10),
+    // paddingTop: verticalScale(10),
   },
   homeButton: {
     backgroundColor: ButtonColor,
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: 'center',
-    marginVertical: verticalScale(50),
+    marginVertical: verticalScale(40),
   },
   firstView: {
     marginTop: verticalScale(80),

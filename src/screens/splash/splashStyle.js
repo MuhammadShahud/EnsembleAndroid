@@ -16,7 +16,6 @@ container: {
   innerView: {
     width: wp('100%'),
 justifyContent : 'center',
-    // alignItems: 'center',
   },
   imageStyle: {
     margin: wp("0%"),
@@ -24,28 +23,28 @@ justifyContent : 'center',
     height: hp('60%'),
   },
   imageStyle2: {
-    width: wp('70%'),
-    height: hp('20%'),
+    width: wp('50%'),
+    // height: hp('10%'),
+    marginTop:verticalScale(20),
     alignSelf:'center'
   },
   btn : {
     width: wp('80%'), 
     alignSelf:'center'  ,
-    marginBottom:verticalScale(20) 
+    marginBottom:verticalScale(20),
+    marginTop:verticalScale(10) 
   },
   boxView:{
     flexDirection:'row',
     alignItems:'center',
     // justifyContent:'center',
-    // alignSelf:'center',
-    // width:'100%',
     backgroundColor: 'rgba(144, 148, 235, 0.1)',
-    // paddingHorizontal:scale(40),
-    paddingVertical:verticalScale(20),
-    // borderRadius:moderateScale(20),
-    marginVertical:verticalScale(10),
+    paddingVertical:verticalScale(17),
+    marginVertical:verticalScale(7),
     marginHorizontal:scale(20),
-    borderRadius:moderateScale(20)
+    borderRadius:moderateScale(20),
+    borderWidth:1,
+    borderColor:'#CACACA'
   },
   setGoals:{
     color:'black',
@@ -55,7 +54,7 @@ justifyContent : 'center',
   },
   monthly:{
     color:'black',
-    // fontFamily:PoppinsRegular,
+    fontFamily:PoppinsRegular,
     paddingLeft:scale(10),
     fontSize:moderateScale(10),
 
@@ -64,9 +63,10 @@ justifyContent : 'center',
   },
   company:{
     color:'black',
-    // fontFamily:PoppinsRegular,
+    fontFamily:PoppinsRegular,
     paddingLeft:scale(10),
     fontSize:moderateScale(10),
+    marginTop:verticalScale(-2),
 
   },
   imageView:{
@@ -74,6 +74,12 @@ justifyContent : 'center',
     marginRight:scale(20)
   },
   flatListCompleted:{
-    // marginBottom:verticalScale(20)
+  },
+  lootie:{
+    marginTop:verticalScale(-170)
+
+  },
+  flatlistView:{
+    marginTop:verticalScale(170)
   }
 })

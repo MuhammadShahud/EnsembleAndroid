@@ -7,6 +7,8 @@ import Button from '../Button';
 import {frameLogo} from '../../../assets/images/images';
 import Entypo from 'react-native-vector-icons/Entypo'
 import GoalButton from '../GoalButton/GoalButton';
+import { PoppinsBold } from '../../../assets/fonts/Fonts';
+import GoalFrame from '../../../assets/images/GoalFrame'
 
 const SetGoalModaal = props => {
   const navigation = useNavigation();
@@ -26,15 +28,16 @@ const SetGoalModaal = props => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.imageView}>
-              <Image source={frameLogo} />
+              {/* <Image source={frameLogo} /> */}
+              <GoalFrame/>
             </View>
           
               <GoalButton
            title="Set New Goals"
+           buttonTextStyle={{fontSize:moderateScale(16)}}
            onPress={navigateNewGoal}
            buttonViewStyle={styles.buttonStyle}/>
 
-            <Button title="Browse Goals" buttonStyle={styles.browseButton} onPress={()=>navigation.navigate('discovergoals')} />
           </View>
         </View>
       </Modal>
@@ -54,10 +57,10 @@ const styles = StyleSheet.create({
   modalView: {
     // margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
     // padding: 25,
     paddingVertical: verticalScale(20),
-    height: '45%',
+    height: '40%',
     width: '80%',
     alignItems: 'center',
     shadowColor: '#000',
@@ -70,8 +73,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: moderateScale(20),
+    paddingHorizontal: scale(10),
+    paddingVertical:verticalScale(10),
     elevation: 2,
   },
   buttonOpen: {
@@ -86,19 +90,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
     textAlign: 'center',
     color: '#2B2F86',
     fontSize: moderateScale(20),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily:PoppinsBold,
     paddingHorizontal: scale(10),
   },
   imageView: {
     marginVertical: verticalScale(10),
     // alignSelf: 'center',
-    marginBottom: verticalScale(20),
-    width:'50%',
-    height:'50%',
+    marginBottom: verticalScale(40),
+    width:'54%',
+    height:'54%',
     backgroundColor:'rgba(43, 47, 134, 0.04)',
     borderRadius:moderateScale(200)
   },
@@ -117,11 +122,15 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(30),
     width: '100%',
     paddingHorizontal: scale(60),
+    fontSize:moderateScale(16),
+    paddingTop:verticalScale(8),
+    paddingBottom:verticalScale(5)
   },
   
   buttonStyle:{
     paddingHorizontal:scale(45),
     marginBottom:verticalScale(10),
+    // paddingTop:verticalScale(10)
   }
 });
 

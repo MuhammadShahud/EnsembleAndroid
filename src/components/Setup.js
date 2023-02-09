@@ -3,6 +3,13 @@ import React from 'react'
 import { notification, right } from '../../assets/images/images'
 import { PoppinsMedium } from '../../assets/fonts/Fonts'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import Notification from '../../assets/images/Notification'
+import Help from '../../assets/images/Help'
+import Privacy from '../../assets/images/Privacy'
+import Terms from '../../assets/images/Terms'
+import Change from '../../assets/images/Change'
+import Access from '../../assets/images/Access'
+import Right from '../../assets/images/Right'
 
 const Setup = (props) => {
   return (
@@ -11,11 +18,17 @@ const Setup = (props) => {
 
         <View style={{flexDirection:'row',}}>
 
-      <Image source={props.source}/>
+      {/* <Image source={props.source}/> */}
+      {props.noti?<Notification/>:null}
+      {props.help?<Help/>:null}
+      {props.privacy?<Privacy/>:null}
+      {props.access?<Access/>:null}
+      {props.terms?<Terms/>:null}
+      {props.change?<Change/>:null}
       <Text style={styles.text}>{props.title}</Text>
         </View>
         <View>
-            <Image source={props.rightImage}/>
+           {props.rightImage?<Right/>:null}
             
         </View>
         </View>

@@ -2,24 +2,31 @@ import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 import { backArrow, ptLogo } from '../../../assets/images/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
-import { scale, verticalScale } from 'react-native-size-matters';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
+import { PoppinsBold } from '../../../assets/fonts/Fonts';
+import { COMPANY } from '../../redux/Reducers/AuthReducer';
 
 const QuestionHeader = (props) => {
+  const company = useSelector(COMPANY);
+  console.log(company);
   const navigation=useNavigation();
   return (
     <View style={styles.mainView}>
-    <MaterialCommunityIcons
-      name='keyboard-backspace' size={25} color={'black'} onPress={()=>navigation.goBack()}/>
+      {props.arrow? <View></View>
+      :
+
+        <MaterialCommunityIcons
+        name='keyboard-backspace' size={25} color={'black'} onPress={()=>navigation.goBack()}/>
+      }
 
       <View style={styles.header}>
-        <Image source={ptLogo}  resizeMode="contain" />
-        <Text style={styles.text}>The Plum Tree Group </Text>
+        <Image  source={{
+                uri: `https://ensemble-backendd.herokuapp.com/${company?.profilePic}`,
+              }}               style={{height:40, width:46}}
+              resizeMode="contain" />
+        <Text style={styles.text}>{company?.companyName} </Text>
       </View>
     </View>
   )
@@ -41,10 +48,9 @@ const styles = StyleSheet.create({
 
     },
     text:{
-        fontSize: wp('4%'),
+        fontSize:moderateScale(14),
         color:'black',
-        fontWeight:'bold',
-        fontFamily: 'Poppins',
+        fontFamily: PoppinsBold,
         textAlign: 'center',
         paddingLeft:scale(10)
     }

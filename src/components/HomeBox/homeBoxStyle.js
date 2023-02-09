@@ -3,15 +3,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import { moderateScale,scale, verticalScale } from 'react-native-size-matters'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
+import { FiraSansMedium, FiraSansSemiBold, PoppinsMedium, PoppinsRegular } from '../../../assets/fonts/Fonts'
 
 export const style = StyleSheet.create({
   BackHeaderBG: {
     backgroundColor:'#ffff',
    paddingHorizontal:wp('5%'),
    paddingVertical:hp('4%'),
-    borderRadius:16,
+    borderRadius:moderateScale(16),
     flexWrap:'wrap',
   },
   box:{
@@ -19,23 +21,28 @@ export const style = StyleSheet.create({
   },
   imageView:{
       backgroundColor:'#F1F2FF',
-      borderRadius:40,
-      padding:13,
-      marginRight:wp('4%')
+      borderRadius:moderateScale(30),
+      height:verticalScale(55),
+      width:scale(55),
+      justifyContent:'center',
+      alignItems:'center',
+      paddingHorizontal:scale(13),
+      paddingVertical:verticalScale(13),
+      marginRight:wp('4%'),
+      shadowColor: '#52006A',  
+      elevation: 7,  
 
   },
   text1:{
-      fontFamily: 'Fira Sans',
-      fontSize:23,
-      fontWeight:'600',
+      fontFamily: FiraSansSemiBold,
+      fontSize:moderateScale(20),
       color:'#000000'
   },
   text2:{
-      fontFamily: 'Poppins',
-      fontSize:9,
-      fontWeight:'300',
+      fontFamily: PoppinsRegular,
+      fontSize:moderateScale(9),
       color:'#1B1B1B',
-      maxWidth:wp('55%')
+      maxWidth:wp('55%'),
       
   }
 })

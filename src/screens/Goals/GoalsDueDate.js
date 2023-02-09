@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Header from '../../components/Header/header';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {ButtonColor} from '../../../assets/colors/colors';
+import Medaal from '../../../assets/images/Medaal'
 import {
   awardLogo,
   timeLogo,
@@ -13,18 +14,32 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import {ProgressBar, MD3Colors} from 'react-native-paper';
+import {
+  FiraSansMedium,
+  FiraSansRegular,
+  FiraSansSemiBold,
+  PoppinsBold,
+  PoppinsMedium,
+  PoppinsRegular,
+  PoppinsSemiBold,
+} from '../../../assets/fonts/Fonts';
+import {useDispatch, useSelector} from 'react-redux';
+import {PatchGoalSteps} from '../../redux/Actions/AuthAction';
+import {USER} from '../../redux/Reducers/AuthReducer';
 
 const GoalsDueDate = props => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const goal = props.route.params.goal;
+  const userData = useSelector(USER);
+  let array = [];
 
-  const [form, setForm] = useState([]);
-  const options = [
-    'Read Employ Handbook',
-    'Fill Employ Information Form',
-    'Submit Attested Documents',
-    'Submit Passport Size Image',
-  ];
+  goal?.steps.forEach(e => {
+    e.isDone ? array.push(e.step) : array.filter(f => f !== e.step);
+  });
+
+  const [form, setForm] = useState(array);
+
   function pickForm(selectedForm) {
     console.log(selectedForm);
     // const index = form.findIndex(form => form == selectedForm)
@@ -34,22 +49,33 @@ const GoalsDueDate = props => {
     }
     setForm(form => form.concat(selectedForm));
   }
+
+  const selectStep = (i, step) => {
+    let obj = {steps: goal.steps};
+
+    obj.steps[i].isDone = !goal.steps[i].isDone;
+    console.log('workinggg', obj);
+
+    dispatch(PatchGoalSteps(obj, goal.id, userData.id));
+    pickForm(step);
+  };
   console.log('goallll', goal);
   return (
     <View>
       <Header />
       <Text style={styles.duedateText}>Due Date</Text>
       <View style={styles.container}>
-        <Text style={styles.number}>08</Text>
+        <Text style={styles.number}>{goal.dueDate.split(' ')[0]}</Text>
         <View>
-          <Text style={styles.dateText}>December, 2022</Text>
+          <Text style={styles.dateText}>{goal.dueDate.split(' ')[1]}</Text>
           <Text style={styles.timeText}>12:00 Am</Text>
         </View>
       </View>
 
       <View style={styles.boxView}>
         <View style={styles.circle}>
-          <Image source={greenMedal} style={styles.imageLogo} />
+          {/* <Image source={greenMedal} style={styles.imageLogo} /> */}
+          <Medaal  style={styles.imageLogo}/>
         </View>
         <View style={styles.boxContainer}>
           <Text style={styles.design}>{goal.goal}</Text>
@@ -66,11 +92,11 @@ const GoalsDueDate = props => {
           <View style={styles.progressBarView}>
             <ProgressBar
               style={styles.progressBar}
-              progress={0.4}
+              progress={goal.progress / 100}
               color={'black'}
             />
           </View>
-          <Text style={styles.progressNumber}>50%</Text>
+          <Text style={styles.progressNumber}>{goal.progress}%</Text>
         </View>
       </View>
       <View style={styles.editView}>
@@ -85,11 +111,11 @@ const GoalsDueDate = props => {
       </View>
 
       <View style={styles.select}>
-        {goal.steps.map(step => (
+        {goal.steps.map((step, i) => (
           <View key={step.step} style={styles.checkboxView}>
             <TouchableOpacity
               style={styles.checkBox}
-              onPress={() => pickForm(step.step)}>
+              onPress={() => selectStep(i, step.step)}>
               {form.includes(step.step) && <Text style={styles.tick}>✔</Text>}
             </TouchableOpacity>
             <Text style={styles.optionText}>{step.step}</Text>
@@ -106,7 +132,7 @@ const styles = StyleSheet.create({
   duedateText: {
     color: 'black',
     fontSize: moderateScale(25),
-    fontWeight: 'bold',
+    fontFamily: PoppinsSemiBold,
     marginHorizontal: scale(20),
     marginTop: verticalScale(30),
   },
@@ -118,25 +144,25 @@ const styles = StyleSheet.create({
   number: {
     color: ButtonColor,
     fontSize: moderateScale(50),
-    fontWeight: '900',
+    fontFamily: PoppinsBold,
   },
   dateText: {
     paddingLeft: scale(5),
     color: 'black',
-    fontWeight: '500',
-    // paddingTop:scale(5)
+    marginTop: verticalScale(-5),
+    fontFamily: PoppinsMedium,
   },
   timeText: {
     paddingLeft: scale(5),
     color: 'black',
-    fontWeight: '400',
+    fontFamily: PoppinsRegular,
+    marginTop: verticalScale(-5),
   },
   boxView: {
     backgroundColor: ButtonColor,
     marginHorizontal: scale(20),
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingVertical:verticalScale(15),
     borderRadius: moderateScale(20),
     marginTop: verticalScale(20),
     paddingHorizontal: scale(10),
@@ -148,12 +174,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: moderateScale(15),
     paddingLeft: scale(10),
+    fontFamily: FiraSansSemiBold,
   },
   date: {
     color: 'white',
     fontWeight: '400',
     fontSize: moderateScale(10),
     paddingLeft: scale(10),
+    fontFamily: FiraSansRegular,
   },
   circle: {
     marginTop: verticalScale(20),
@@ -169,24 +197,20 @@ const styles = StyleSheet.create({
   imageLogo: {
     alignItems: 'center',
   },
-  boxContainer: {
-    // marginTop: verticalScale(-5)
-  },
+  boxContainer: {},
   progress: {
     color: 'black',
-    // marginHorizontal: scale(20),
     marginTop: verticalScale(15),
     fontSize: moderateScale(20),
-    fontWeight: '500',
+    fontFamily: PoppinsMedium,
   },
   steps: {
     color: 'black',
     fontSize: moderateScale(20),
-    fontWeight: '500',
+    fontFamily: PoppinsMedium,
   },
   editView: {
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: scale(25),
     marginBottom: verticalScale(5),
@@ -194,8 +218,7 @@ const styles = StyleSheet.create({
   },
   edit: {
     color: ButtonColor,
-    fontWeight: '500',
-    // fontSize:moderateScale(15)
+    fontFamily: FiraSansMedium,
   },
   editIcon: {
     color: ButtonColor,
@@ -204,21 +227,16 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderWidth: 1,
-    // borderColor:'blue',
     borderRadius: moderateScale(50),
-    // backgroundColor:ButtonColor
   },
   tick: {
     color: 'white',
     width: 23,
     height: 23,
     borderRadius: moderateScale(50),
-    // borderWidth:1,
-    // borderColor:'black',
 
     textAlign: 'center',
     backgroundColor: ButtonColor,
-    // borderRadius:moderateScale(100)
   },
   checkboxView: {
     flexDirection: 'row',
@@ -229,6 +247,7 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingLeft: scale(15),
     fontSize: moderateScale(15),
+    fontFamily: PoppinsRegular,
   },
 
   progressView: {
@@ -249,7 +268,6 @@ const styles = StyleSheet.create({
   },
   progressBarView: {
     width: '85%',
-    // marginTop: verticalScale(10)
   },
   mainProgressView: {
     flexDirection: 'row',

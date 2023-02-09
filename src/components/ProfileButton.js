@@ -4,6 +4,7 @@ import {ButtonColor} from '../../assets/colors/colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import { InterSemiBold } from '../../assets/fonts/Fonts';
 
 const ProfileButton = props => {
   const navigation = useNavigation();
@@ -16,8 +17,8 @@ const ProfileButton = props => {
       <Text
         style={{
           color: ButtonColor,
-          fontWeight: '700',
           fontSize: moderateScale(10),
+          fontFamily:InterSemiBold
         }}>
         View Profile
       </Text>
@@ -34,10 +35,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: ButtonColor,
     // alignItems:'center',
-    paddingVertical: verticalScale(5),
+    paddingVertical: verticalScale(6),
     // paddingHorizontal:scale(10),
     borderRadius: moderateScale(20),
     flexDirection: 'row',
-    justifyContent: 'center', // fontSize:moderateScale(10)
+    justifyContent: 'center', // fontSize:moderateScale(10),
+    // width:'100%',
+    // backgroundColor:'blue',
   },
 });

@@ -18,8 +18,12 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: moderateScale(35),
         marginHorizontal: scale(20),
-        // fontWeight: 'bold',
         fontFamily:PoppinsSemiBold,
-        marginBottom:verticalScale(10)
+        // marginBottom:verticalScale(10),
+        // lineHeight:verticalScale(45)
+        // paddingBottom:
+        lineHeight:verticalScale(35),
+        marginBottom:verticalScale(5)
+        
     },
 })

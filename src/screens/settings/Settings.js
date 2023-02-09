@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, Switch, Image} from 'react-native';
-import React, {useState} from 'react';
+import { StyleSheet, Text, View, Switch, Image } from 'react-native';
+import React, { useState } from 'react';
 import SettingsHeader from '../../components/Header/SettingsHeader';
 import {
   PoppinsBold,
@@ -8,7 +8,7 @@ import {
   PoppinsRegular,
   PoppinsSemiBold,
 } from '../../../assets/fonts/Fonts';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Setup from '../../components/Setup';
 import {
   accessiblity,
@@ -20,7 +20,8 @@ import {
   right,
   terms,
 } from '../../../assets/images/images';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import DarkMode from '../../../assets/images/DarkMode';
 import Footer from '../../components/footer/Footer';
 
 const Settings = () => {
@@ -34,8 +35,8 @@ const Settings = () => {
         <Text style={styles.settings}>Settings</Text>
         <Setup
           title={'Notification'}
-          rightImage={right}
-          source={notification}
+          rightImage='zz'
+          noti='aa'
           onPress={() => navigation.navigate('notification')}
         />
         <View
@@ -46,8 +47,8 @@ const Settings = () => {
             marginTop: verticalScale(25),
             marginBottom: verticalScale(-5),
           }}>
-          <View style={{flexDirection: 'row'}}>
-            <Image source={darkmode} />
+          <View style={{ flexDirection: 'row' }}>
+            <DarkMode />
             <Text style={styles.text}>Dark Mode</Text>
           </View>
           <View
@@ -58,7 +59,7 @@ const Settings = () => {
             }}>
             <Text style={styles.toggleText}>Off</Text>
             <Switch
-              trackColor={{false: '#CDD8DD', true: '#2AB579'}}
+              trackColor={{ false: '#CDD8DD', true: '#2AB579' }}
               thumbColor={isEnabled ? 'white' : 'white'}
               ios_backgroundColor="#3e3e3e"
               // onValueChange={toggleSwitch}
@@ -66,18 +67,31 @@ const Settings = () => {
             />
           </View>
         </View>
-        <Setup title={'Help'} rightImage={right} source={help} />
-        <Setup title={'Privacy Policy'} rightImage={right} source={privacy} />
-        <Setup title={'Acessiblity'} rightImage={right} source={accessiblity} />
-        <Setup
-          title={'Terms and Condition'}
-          rightImage={right}
-          source={terms}
+        <Setup title={'Help'}
+          rightImage='zz'
+
+          help='zz'
+        />
+        <Setup title={'Privacy Policy'}
+          rightImage='zz'
+
+          privacy='ss'
+        />
+        <Setup title={'Acessiblity'}
+          rightImage='zz'
+
+          access='zzz'
         />
         <Setup
+          rightImage='zz'
+
+          title={'Terms and Condition'}
+          terms='rr' />
+        <Setup
           title={'Change Password'}
-          rightImage={right}
-          source={lock}
+          rightImage='zz'
+
+          change='www'
           onPress={() => navigation.navigate('changepassword')}
         />
       </View>
@@ -111,12 +125,12 @@ const styles = StyleSheet.create({
   },
   ensemble: {
     // fontWeight:'bold',
-    color: '#8C8C8C',
+    color: 'black',
     fontSize: moderateScale(20),
     fontFamily: PoppinsSemiBold,
   },
   powered: {
-    color: '#8C8C8C',
+    color: 'black',
     fontFamily: PoppinsRegular,
     marginBottom: verticalScale(-5),
   },

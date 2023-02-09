@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import { seerch } from '../../../assets/images/images';
 
 const InputField = props => {
   return (
@@ -15,12 +16,14 @@ const InputField = props => {
         placeholderTextColor={props.placeholderTextColor}
         placeholder={props.placeholder}
       />
+        {/* <Image source={seerch}/> */}
       {props.clicked? (
           <Entypo name="cross" size={20} color="black" style={{ padding: 1 }} onPress={() => {
             props.setSearchPhrase("")
+            props.setClicked(false)
           }}/>
         ):
-      <Image source={props.source} />
+      <Image source={seerch} />
       }
     </View>
   );

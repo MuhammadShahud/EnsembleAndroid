@@ -26,14 +26,7 @@ export default function Dashes(props) {
         source={props.color === 5 ? colorDash : greyDash}
         style={styles.image}
       />
-      <Image
-        source={props.color === 6 ? colorDash : greyDash}
-        style={styles.image}
-      />
-      <Image
-        source={props.color === 7 ? colorDash : greyDash}
-        style={styles.image}
-      />
+     
     </View>
   );
 }

@@ -10,6 +10,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import GoalButton from '../GoalButton/GoalButton';
+import { PoppinsBold, PoppinsLight } from '../../../assets/fonts/Fonts';
 
 
 const SetGoals = ({visible , setVisible}) => {
@@ -46,14 +47,14 @@ const styles = StyleSheet.create({
   GoalText: {
     color: 'black',
     fontSize: moderateScale(30),
-    fontWeight: '900',
-    fontSize: moderateScale(35),
+    fontFamily:PoppinsBold,
   },
   SetGoalText: {
     color: 'black',
+    fontFamily:PoppinsLight,
+    marginTop:verticalScale(-10)
   },
   GoalView: {
-    // marginHorizontal:scale(20),
   },
   button: {
     width: '100%',

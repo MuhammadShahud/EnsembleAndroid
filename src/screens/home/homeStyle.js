@@ -6,6 +6,7 @@ import {
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
+import { FiraSansBold, PoppinsBold, PoppinsLight, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts'
 
 export const style = StyleSheet.create({
   container: {
@@ -30,20 +31,40 @@ export const style = StyleSheet.create({
   justifyContent: 'space-between'
  },
  morning : {
-  fontFamily:'Poppins',
-  fontSize:30,
+  fontFamily:PoppinsLight,
+  fontSize:moderateScale(25),
   color:'#1B1B1B'
  },
  name: {
-  fontFamily:'Poppins',
-  fontSize:30,
+  fontFamily:PoppinsBold,
+  // fontSize:30,
+  fontSize:moderateScale(25),
   color:'#1B1B1B',
-  fontWeight:'bold'
+  marginTop:verticalScale(-10)
  },
  overview : {
-  fontFamily:'Poppins',
-  fontSize:26,
+  fontFamily:FiraSansBold,
+  fontSize:moderateScale(25),
   color:'#1B1B1B',
-  fontWeight:'bold'
- }
-})
+ },
+ position:{
+  fontFamily:PoppinsRegular,
+  color:'#1B1B1B'
+ },
+ footerView: {
+  marginHorizontal: scale(5),
+  marginVertical: verticalScale(15),
+  marginBottom: verticalScale(40),
+  marginTop:verticalScale(30)
+},
+powered: {
+  color: 'black',
+  fontFamily: PoppinsRegular,
+},
+ensemble: {
+  color: 'black',
+  fontSize: moderateScale(20),
+  fontFamily: PoppinsSemiBold,
+  marginTop: verticalScale(-3),
+},
+});
