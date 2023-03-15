@@ -9,28 +9,7 @@ import axios from 'axios';
 
 const App = () => {
 
-  const tokenId = '638e8e677bb5e473f75d062c';
-  const sendFcmToken = async () => {
-    
-    try {
-      await messaging().registerDeviceForRemoteMessages();
-      const token = await messaging().getToken();
-      console.log('workingggg');
-      await axios.patch(
-        `https://onboard-backendd.herokuapp.com/api/noti/token/${tokenId}`,
-        {token},
-      );
-    } catch (err) {
-      //Do nothing
-      console.log("errror",err.response);
-      return;
-    }
-  };
 
-  useEffect(() => {
-    sendFcmToken();
-    
-  }, []);
 
   return (
     <Provider store={Store}>

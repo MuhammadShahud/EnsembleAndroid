@@ -92,11 +92,9 @@ const Teams = () => {
                     />
                     <Text style={styles.Name}>{item.name}</Text>
                     <Text style={styles.position}>
-                      {item.questions.jobTitle}
+                      {item.jobTitle}
                     </Text>
-                    <Text style={styles.description}>
-                      {item.questions.threeDesc}
-                    </Text>
+                  
                   </TouchableOpacity>
                 );
               }
@@ -121,11 +119,9 @@ const Teams = () => {
                     />
                     <Text style={styles.Name}>{item.name}</Text>
                     <Text style={styles.position}>
-                      {item.questions.jobTitle}
+                      {item.jobTitle}
                     </Text>
-                    <Text style={styles.description}>
-                      {item.questions.threeDesc}
-                    </Text>
+                    
                   </TouchableOpacity>
                 );
               }

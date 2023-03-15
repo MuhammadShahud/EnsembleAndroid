@@ -2,13 +2,11 @@ import React from 'react';
 import {
   View,
   Text,
-  ImageBackground,
   Image,
   TouchableOpacity,
 } from 'react-native';
 import {
   DrawerContentScrollView,
-  DrawerItemList,
 } from '@react-navigation/drawer';
 import {
   widthPercentageToDP as wp,
@@ -58,7 +56,7 @@ const CustomDrawer = props => {
     console.log("logouuttt");
     await AsyncStorage.removeItem('user');
     dispatch(Login({}));
-    navigation.navigate('login');
+    navigation.navigate('Login');
   };
 
   return (
@@ -176,7 +174,7 @@ const CustomDrawer = props => {
               {/* <Image source={blackResources}  /> */}
               <Resources />
             </View>
-            <Text style={style.tabText}>Resources</Text>
+            <Text style={[style.tabText,style.greyOut]}>Resources</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={style.drawerTabs}>
@@ -184,7 +182,7 @@ const CustomDrawer = props => {
               {/* <Image source={blackFun}  /> */}
               <Plugin />
             </View>
-            <Text style={style.tabText}>Fun stuff</Text>
+            <Text style={[style.tabText,style.greyOut]}>Fun stuff</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={style.drawerTabs}>
@@ -192,7 +190,7 @@ const CustomDrawer = props => {
               {/* <Image source={blackBriefCase}  /> */}
               <BriefCase />
             </View>
-            <Text style={style.tabText}>Professional Development</Text>
+            <Text style={[style.tabText,style.greyOut]}>Professional Development</Text>
           </TouchableOpacity>
 
           <TouchableOpacity

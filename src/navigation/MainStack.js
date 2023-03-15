@@ -2,7 +2,7 @@ import React from 'react';
 import Splash from '../screens/splash/Splash';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/login/login';
-import DrawerStack from './DrawerStack';
+import DrawerStack, { AuthStack } from './DrawerStack';
 import TabStack from './TabStack';
 import VerifyEmail from '../screens/login/VerifyEmail';
 import VerificationCode from '../screens/login/VerificationCode';
@@ -28,7 +28,6 @@ import UpdateProfile from '../screens/Goals/UpdateProfile';
 
 
 const Main = createNativeStackNavigator();
-const Auth = createNativeStackNavigator();
 
 const MainStack = () => {
   return (
@@ -188,42 +187,7 @@ const MainStack = () => {
   );
 };
 
-export const AuthStack = () => {
-  return (
-    <Auth.Navigator
-      initialRouteName="splash"
-      headerMode="none"
-      options={{
-        animationEnabled: false,
-      }}>
-      <Auth.Screen
-        name="splash"
-        component={Splash}
-        options={{headerShown: false}}
-      />
-      <Auth.Screen
-        name="login"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Auth.Screen
-        name="verifyemail"
-        component={VerifyEmail}
-        options={{headerShown: false}}
-      />
-      <Auth.Screen
-        name="verificationcode"
-        component={VerificationCode}
-        options={{headerShown: false}}
-      />
-      <Auth.Screen
-        name="resetpassword"
-        component={ResetPassword}
-        options={{headerShown: false}}
-      />
-    </Auth.Navigator>
-  );
-};
+
 
 
 export default MainStack;

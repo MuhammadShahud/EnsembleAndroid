@@ -3,7 +3,6 @@ import {
   Text,
   View,
   FlatList,
-  Image,
   TouchableOpacity,
   Dimensions,
   ScrollView,
@@ -12,12 +11,7 @@ import React, {useState, useEffect} from 'react';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Check from '../../../assets/images/Check';
 import Header from '../../components/Header/header';
-import {
-  checkMark,
-  notiLogo,
-  smallstar,
-  star,
-} from '../../../assets/images/images';
+import {notiLogo} from '../../../assets/images/images';
 import {
   FiraSansSemiBold,
   PoppinsBold,
@@ -31,10 +25,11 @@ import {ButtonColor} from '../../../assets/colors/colors';
 import {useRef} from 'react';
 import Button from '../../components/Button';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SURVEYS, USER} from '../../redux/Reducers/AuthReducer';
 import WhiteMedal from '../../../assets/images/WhiteMedal';
 import LightBlueStar from '../../../assets/images/LightBlueStar';
+import {PatchUserFirstTime} from '../../redux/Actions/AuthAction';
 
 const Survey = () => {
   const refRBSheet = useRef();
@@ -42,11 +37,12 @@ const Survey = () => {
   const userData = useSelector(USER);
   const surveys = useSelector(SURVEYS);
   const height = Dimensions.get('screen').height;
+  const dispatch = useDispatch();
   console.log('surveysss', userData);
 
   const [show, setShow] = useState(true);
   useEffect(() => {
-    refRBSheet.current.open();
+    userData.firstTimeSurvey && refRBSheet.current.open();
   }, []);
 
   let weeklySurvey = surveys;
@@ -64,13 +60,17 @@ const Survey = () => {
     console.log('fffff', e, newLaptop);
 
     let newLaptop = laptop?.forEach(s => {
-      s?.id === e?      newLap.push(s): null
+      s?.id === e ? newLap.push(s) : null;
     });
   });
   laptop = newLap;
-  console.log('length', laptop.length, weeklySurvey.length);
-
-  console.log('laptop', laptop, userData?.completedSurveys);
+  const rbsheetClose = () => {
+    const obj = {
+      firstTimeSurvey: false,
+    };
+    dispatch(PatchUserFirstTime(obj, userData.id));
+    refRBSheet.current.close();
+  };
   return (
     <View style={styles.mainView}>
       <ScrollView>
@@ -135,45 +135,48 @@ const Survey = () => {
             />
           )}
 
-          <RBSheet
-            ref={refRBSheet}
-            closeOnDragDown={true}
-            closeOnPressMask={false}
-            customStyles={{
-              wrapper: {
-                backgroundColor: 'rgba(0,0,0,0.5)',
-              },
-              draggableIcon: {
-                backgroundColor: '#000',
-                width: '40%',
-                marginTop: verticalScale(15),
-              },
-              container: {
-                backgroundColor: 'white',
-                borderTopLeftRadius: moderateScale(45),
-                borderTopRightRadius: moderateScale(45),
-                paddingHorizontal: scale(20),
-                zIndex: 1,
-              },
-            }}
-            height={height * 0.35}>
-            <View style={styles.bottomsheet}>
-              {/* <Text style={styles.georgeText}>What are</Text>
+          {userData.firstTimeSurvey && (
+            <RBSheet
+              isVisible={userData.firstTimeSurvey}
+              ref={refRBSheet}
+              closeOnDragDown={true}
+              closeOnPressMask={false}
+              customStyles={{
+                wrapper: {
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                },
+                draggableIcon: {
+                  backgroundColor: '#000',
+                  width: '40%',
+                  marginTop: verticalScale(15),
+                },
+                container: {
+                  backgroundColor: 'white',
+                  borderTopLeftRadius: moderateScale(45),
+                  borderTopRightRadius: moderateScale(45),
+                  paddingHorizontal: scale(20),
+                  zIndex: 1,
+                },
+              }}
+              height={height * 0.35}>
+              <View style={styles.bottomsheet}>
+                {/* <Text style={styles.georgeText}>What are</Text>
           <Text style={styles.georgeText1}>Pulse Surveys?</Text> */}
-              <Text style={styles.georgeText}>What are Pulse Surveys?</Text>
-              <Text style={styles.goalParagraph}>
-                Pulse surveys are a mechanism for measuring feedback using
-                shorter, more frequent check-ins, that's not bound to measuring
-                specific topics or content.
-              </Text>
+                <Text style={styles.georgeText}>What are Pulse Surveys?</Text>
+                <Text style={styles.goalParagraph}>
+                  Pulse surveys are a mechanism for measuring feedback using
+                  shorter, more frequent check-ins, that's not bound to
+                  measuring specific topics or content.
+                </Text>
 
-              <Button
-                title={'Lets Go'}
-                buttonStyle={styles.button}
-                onPress={() => refRBSheet.current.close()}
-              />
-            </View>
-          </RBSheet>
+                <Button
+                  title={'Lets Go'}
+                  buttonStyle={styles.button}
+                  onPress={() => rbsheetClose()}
+                />
+              </View>
+            </RBSheet>
+          )}
         </View>
         <View style={styles.footerView}>
           <Text style={styles.powered}>Powered by</Text>

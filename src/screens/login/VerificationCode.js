@@ -18,10 +18,8 @@ import {
 } from 'react-native-confirmation-code-field';
 import {
   PoppinsLight,
-  PoppinsMedium,
   PoppinsRegular,
   PoppinsSemiBold,
-  PoppinsSemiBoldItalic,
 } from '../../../assets/fonts/Fonts';
 import { FlashMessage } from '../../redux/Actions/AuthAction';
 
@@ -47,14 +45,14 @@ const VerificationCode = props => {
 
   console.log('inputCode', value);
   const forgetCode = props.route.params;
-  // console.log('code',forgetCode.forgetCode);
+  console.log('code',forgetCode);
 
   const submitLogin = () => {
     console.log(value, 'shahudd', value === forgetCode.forgetCode.toString());
     value === forgetCode.forgetCode.toString()
       ? navigation.navigate('resetpassword', {email: forgetCode.email})
       :  FlashMessage({
-        message: "The code you entered is Incorrect",
+        message: "Invalid Code",
         type: 'danger',
       });;
   };

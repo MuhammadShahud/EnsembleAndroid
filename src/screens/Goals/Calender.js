@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-// import colors from '../../constants/colors';
 import { Calendar } from 'react-native-calendars';
-// import CustomButton from '../../components/Buttons/CustomButton';
-import moment from 'moment';
 import Header from '../../components/Header/header';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Button from '../../components/Button'
@@ -11,15 +8,18 @@ import { ButtonColor, PRIMARYCOLOR } from '../../../assets/colors/colors';
 import Footer from '../../components/footer/Footer';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { PatchGoal, PostGoal } from '../../redux/Actions/AuthAction';
+import { FlashMessage, PatchGoal, PostGoal } from '../../redux/Actions/AuthAction';
 import GoalUpdateModaal from '../../components/Modaal/GoalUpdateModaal';
 import DashesGoals from '../../components/Goals/dashesGoals';
 import { PoppinsMedium, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
+import moment from 'moment';
 
 const Calen = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
   const [visible, setVisible] = useState(false);
+  const [reminder, setReminder] = useState();
+  console.log("reminderrrr",reminder);
   const today = moment().format('YYYY-MM-DD');
   let goal = props.route.params.goal;
   const datee=  props.route.params.edit ?goal.dueDate.split('T')[0] :today;
@@ -29,13 +29,21 @@ const Calen = (props) => {
 
 
   const createGoal = () => {
+    if(reminder===true || reminder===false){
+      console.log(reminder);
+      goal.reminder = reminder;
     goal.dueDate = date;
     console.log("finalGoal", goal, user);
 
     props.route.params.edit ?
-      dispatch(PatchGoal(goal, navigation, 'successGoal', user, goal.id,setVisible))
+      dispatch(PatchGoal(goal, navigation, 'successGoal', user, goal._id,setVisible))
       :
       dispatch(PostGoal(goal, navigation, 'successGoal', user))
+    }else{
+      FlashMessage( {
+         message: "Choosing reminder is required",
+        type: 'danger'})
+    }
   }
 
 
@@ -101,8 +109,8 @@ const Calen = (props) => {
           <Text style={styles.remindedText}>Do you want to get reminded?</Text>
 
           <View style={styles.buttonContainer}>
-            <Button title='NO' buttonStyle={styles.button} />
-            <Button title='YES' buttonStyle={styles.button} />
+            <Button title='NO' onPress = {()=>setReminder(false)} buttonStyle={styles.button} />
+            <Button title='YES' onPress = {()=>setReminder(true)} buttonStyle={styles.button} />
           </View>
           <Text style={styles.reminder}>You’ll get reminder notification a day before goal deadline</Text>
         </View>

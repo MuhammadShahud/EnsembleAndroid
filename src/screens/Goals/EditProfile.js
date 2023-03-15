@@ -16,7 +16,6 @@ const EditProfile = props => {
 
   const userData = props.route.params.userData;
   const company = useSelector(COMPANY);
-  console.log('userData', userData);
 
   return (
     <View style={styles.mainView}>
@@ -32,9 +31,9 @@ const EditProfile = props => {
             />
 
             <EditDetails
-              detail1={userData.jobTitle}
+              detail1={userData?.jobTitle}
               detail2={company?.companyName}
-              title={userData.name}
+              title={userData?.name}
               source={edit}
               name="kuchbhi"
             />
@@ -44,12 +43,12 @@ const EditProfile = props => {
             EditText={'Edit Profile'}
           />: null}
           <EditDetails
-            detail1={userData.profileData.number}
+            detail1={userData?.profileData?.number}
             title="Phone Number"
             source={edit}
           />
           <EditDetails
-            detail1={userData.profileData.location}
+            detail1={userData?.profileData?.location}
             title="Location"
             source={edit}
           />
@@ -58,20 +57,20 @@ const EditProfile = props => {
           <EditButtons
             title="Rockstar Skills"
             addImage={add}
-            properties={userData.questions.rockstarSkills}
+            properties={userData?.questions?.rockstarSkills}
           />
           <EditButtons
             title="When you are not working, what do you enjoy doing the most?"
             addImage={add}
-            properties={userData.questions.Hobbies}
+            properties={userData?.questions?.Hobbies}
           />
           <EditDetails
-            detail1={userData.questions.descKid}
+            detail1={userData?.questions?.descKid}
             title="How Would you describe job to the group of 5 years old?"
             source={edit}
           />
           <EditDetails
-            detail1={userData.questions.achievment}
+            detail1={userData?.questions?.achievment}
             title="What is ONE of the coolest things you have ever done?"
             source={edit}
           />

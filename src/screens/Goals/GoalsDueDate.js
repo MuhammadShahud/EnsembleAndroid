@@ -3,13 +3,7 @@ import React, {useState} from 'react';
 import Header from '../../components/Header/header';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {ButtonColor} from '../../../assets/colors/colors';
-import Medaal from '../../../assets/images/Medaal'
-import {
-  awardLogo,
-  timeLogo,
-  loading,
-  greenMedal,
-} from '../../../assets/images/images';
+import Medaal from '../../../assets/images/Medaal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
@@ -38,7 +32,11 @@ const GoalsDueDate = props => {
     e.isDone ? array.push(e.step) : array.filter(f => f !== e.step);
   });
 
+  console.log("array",array);
+
   const [form, setForm] = useState(array);
+
+  console.log("form",form);
 
   function pickForm(selectedForm) {
     console.log(selectedForm);
@@ -52,11 +50,14 @@ const GoalsDueDate = props => {
 
   const selectStep = (i, step) => {
     let obj = {steps: goal.steps};
+    obj.steps.forEach((e, i) => {
+      delete obj.steps[i]._id;
+    });
 
     obj.steps[i].isDone = !goal.steps[i].isDone;
-    console.log('workinggg', obj);
+    console.log('workinggg', goal._id);
 
-    dispatch(PatchGoalSteps(obj, goal.id, userData.id));
+    dispatch(PatchGoalSteps(obj, goal._id, userData.id));
     pickForm(step);
   };
   console.log('goallll', goal);
@@ -65,9 +66,9 @@ const GoalsDueDate = props => {
       <Header />
       <Text style={styles.duedateText}>Due Date</Text>
       <View style={styles.container}>
-        <Text style={styles.number}>{goal.dueDate.split(' ')[0]}</Text>
+        <Text style={styles.number}>{goal.dueDate.split(',')[0]}</Text>
         <View>
-          <Text style={styles.dateText}>{goal.dueDate.split(' ')[1]}</Text>
+          <Text style={styles.dateText}>{goal.dueDate.split(',')[1]}</Text>
           <Text style={styles.timeText}>12:00 Am</Text>
         </View>
       </View>
@@ -75,7 +76,7 @@ const GoalsDueDate = props => {
       <View style={styles.boxView}>
         <View style={styles.circle}>
           {/* <Image source={greenMedal} style={styles.imageLogo} /> */}
-          <Medaal  style={styles.imageLogo}/>
+          <Medaal style={styles.imageLogo} />
         </View>
         <View style={styles.boxContainer}>
           <Text style={styles.design}>{goal.goal}</Text>
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(15),
     paddingLeft: scale(10),
     fontFamily: FiraSansSemiBold,
+    width: scale(230),
   },
   date: {
     color: 'white',

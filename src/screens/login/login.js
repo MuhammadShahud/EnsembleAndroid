@@ -6,9 +6,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-  Pressable,
   ScrollView,
 } from 'react-native';
 import {
@@ -20,13 +17,10 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { style } from './loginStyle';
 import { styles } from '../../styles/GeneralStyle';
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { FlashMessage, LoginFunction } from '../../redux/Actions/AuthAction';
 import { scale, verticalScale } from 'react-native-size-matters';
-import Button from '../../components/Button';
 import Eyee from '../../../assets/images/eyee'
 import EyeeSlash from '../../../assets/images/noteyee'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const Login = () => {
   const dispatch = useDispatch();

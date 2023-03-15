@@ -19,7 +19,6 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { FlashMessage, ForgetPass } from '../../redux/Actions/AuthAction'
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
 import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 const VerifyEmail = () => {

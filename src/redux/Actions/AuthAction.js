@@ -1,8 +1,6 @@
 import axios from 'axios';
 import {showMessage} from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useSelector} from 'react-redux';
-import {USER} from '../Reducers/AuthReducer';
 
 export const Login = data => {
   return {
@@ -59,30 +57,46 @@ export const LoginFunction = (newObj, navigation, destination) => {
       const response = await axios
         .post(`${state().AuthReducer.baseUrl}auth/signin`, newObj)
         .then(async res => {
-          console.log('responssseee', res);
+          console.log('responssseee', res.data.message.firstTime);
 
           await AsyncStorage.setItem('user', JSON.stringify(res.data.message));
 
           dispatch(Login(res.data.message));
 
           dispatch(GetCompany(res.data.message.companyId));
-          navigation.reset({
-            index: 0,
-            routes: [{name: destination}],
-          });
+          if (!res.data.message.firstTime) {
+            if (!res.data.message.firstTimeQuestion) {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'drawer'}],
+              });
+            } else {
+              navigation.reset({
+                index: 0,
+                routes: [{name: destination}],
+              });
+            }
+          } else {
+            navigation.navigate('resetpassword', {
+              email: res.data.message.email,
+              firstTime: true,
+            });
+          }
         });
     } catch (err) {
-      console.log(`Err in login function: `, err.response);
-      // FlashMessage({
-      //   message: err.error,
-      //   type: 'danger',
-      // });
+      console.log(
+        `Err in login function: `,
+        err.response.data.errors[0].message,
+      );
+      FlashMessage({
+        message: err.response.data.errors[0].message,
+        type: 'danger',
+      });
     }
   };
 };
 
-
-export const GetUser = (navigation,destination,id) => {
+export const GetUser = (navigation, destination, id) => {
   return async (dispatch, state) => {
     console.log('L', id);
     try {
@@ -103,7 +117,6 @@ export const GetUser = (navigation,destination,id) => {
   };
 };
 
-
 export const ForgetPass = (newObj, navigation, destination) => {
   return async (dispatch, state) => {
     console.log('L');
@@ -117,6 +130,7 @@ export const ForgetPass = (newObj, navigation, destination) => {
           dispatch(Login(res.data));
           navigation.navigate(destination, {
             forgetCode: res.data.forgetCode,
+            email: res.data.email,
           });
         });
     } catch (err) {
@@ -129,23 +143,33 @@ export const ForgetPass = (newObj, navigation, destination) => {
   };
 };
 
-export const ResetPass = (newObj, setModalOpen) => {
+export const ResetPass = (newObj, setModalOpen, firstTime) => {
   return async (dispatch, state) => {
-    console.log('L');
+    console.log('L', newObj);
     try {
-      console.log('M', newObj);
+      console.log('M', firstTime);
 
       const response = await axios
         .post(`${state().AuthReducer.baseUrl}auth/changePass`, newObj)
         .then(async res => {
-          console.log(res.data);
-
+          console.log(res.data.user.id);
+          firstTime
+            ? dispatch(
+                PatchUser(
+                  {firstTime: false},
+                  null,
+                  null,
+                  res.data.user.id,
+                  true,
+                ),
+              )
+            : null;
           setModalOpen(true);
         });
     } catch (err) {
       console.log(`Err in resetPass function: `, err.response.data);
       FlashMessage({
-        message: err.errors,
+        message: err.response.data.errors[0].message,
         type: 'danger',
       });
     }
@@ -220,16 +244,16 @@ export const PatchGoal = (
           },
         })
         .then(async res => {
-          console.log("ressssssss",res.data.result.employeeId);
+          console.log('ressssssss', res.data.result.employeeId);
           dispatch(GetGoals(token, res.data.result.employeeId));
           setVisible ? setVisible(true) : navigation.navigate(destination);
         });
     } catch (err) {
-      console.log(`Err in postGoal function: `, err.response.data);
-      FlashMessage({
-        message: err.response.data.message,
-        type: 'danger',
-      });
+      console.log(`Err in PatchGoal function: `, err.response.data);
+      // FlashMessage({
+      //   message: err.response.data.message,
+      //   type: 'danger',
+      // });
     }
   };
 };
@@ -240,10 +264,10 @@ export const PatchGoalSteps = (newObj, id, userId) => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWh1ZEBwbHVtdHJlZWdyb3VwLm5ldCIsImlhdCI6MTY2NDU2NzExNSwiZXhwIjoxNjk2MTAzMTE1fQ.bG940Pi5-Tf6CX4AMxLSZ2vLHZJr3XfgkBsIRvtkNeA';
     try {
-      console.log('M', newObj);
+      console.log('M', id);
 
       const response = await axios
-        .patch(`${state().AuthReducer.baseUrl}goals/steps/${id}`, newObj, {
+        .patch(`http://192.168.0.209:3006/api/goals/steps/${id}`, newObj, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -302,20 +326,46 @@ export const GetTeam = id => {
   };
 };
 
-export const PatchUser = (newObj, navigation, destination, id) => {
+export const PatchUser = (newObj, navigation, destination, id, firstTime) => {
   return async (dispatch, state) => {
     console.log('L');
     try {
-      console.log('M', newObj, destination, id);
+      console.log('M', newObj, destination, id, firstTime);
 
       const response = await axios
         .patch(`${state().AuthReducer.baseUrl}user/${id}`, newObj)
         .then(async res => {
           console.log(res.data);
+          if (!firstTime) {
+            dispatch(Login(res.data));
+            destination === 'Profile'
+              ? navigation.navigate(destination, {userData: res.data})
+              : navigation.navigate(destination);
+          }
+        });
+    } catch (err) {
+      console.log(`Err in patchUser function: `, err);
+      // FlashMessage({
+      //   message: err.response.data.message,
+      //   type: 'danger',
+      // });
+    }
+  };
+};
+
+export const PatchUserFirstTime = (
+  newObj,
+  id,
+) => {
+  return async (dispatch, state) => {
+    console.log('L');
+    try {
+      console.log('M' )
+
+      const response = await axios
+        .patch(`${state().AuthReducer.baseUrl}user/${id}`, newObj)
+        .then(async res => {
           dispatch(Login(res.data));
-          destination === 'Profile'
-            ? navigation.navigate(destination, {userData: res.data})
-            : navigation.navigate(destination);
         });
     } catch (err) {
       console.log(`Err in patchUser function: `, err);
@@ -415,15 +465,15 @@ export const PatchSurveys = (newObj, navigation, destination, id) => {
   };
 };
 
-export const GetNoti = () => {
+export const GetNoti = id => {
   return async (dispatch, state) => {
     console.log('L');
     try {
       const response = await axios
-        .get(`${state().AuthReducer.baseUrl}noti`)
+        .get(`${state().AuthReducer.baseUrl}noti?companyId=${id}`)
         .then(async res => {
           console.log('responseNoti', res.data.result);
-          dispatch(Noti(res.data.result));
+          dispatch(Noti(res.data.result.results));
         });
     } catch (err) {
       console.log(`Err in getNoti function: `, err);
