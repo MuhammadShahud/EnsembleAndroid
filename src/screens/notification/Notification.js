@@ -27,7 +27,7 @@ const Notification = () => {
   const navigation = useNavigation();
   const notifications = useSelector(NOTI);
   const notiToday = notifications;
-
+console.log("notiTodaayyyyy",notiToday);
   notiToday?.map((n, i) => {
     let split = n.createdAt.split('T23:');
     console.log('split', split);

@@ -5,7 +5,6 @@ import {
   onBoardLogo,
   ship,
 } from '../../../assets/images/images';
-import {boat} from '../../../assets/images/images';
 import PrimaryButton from '../../components/PrimaryButton';
 import {styles} from './splashStyle';
 import React from 'react';
@@ -91,9 +90,9 @@ const Splash = () => {
                   {item.imageURL === 'abc' ? (
                     <Goals />
                   ) : item.imageURL === 'xyz' ? (
-                    <Feedback />
-                  ) : item.imageURL === 'bbb' ? (
                     <Connect />
+                  ) : item.imageURL === 'bbb' ? (
+                    <Feedback />
                   ) : null}
                 </View>
                 <View>

@@ -16,12 +16,16 @@ import {
 } from 'react-native-responsive-screen';
 import PrimaryButton from '../../components/PrimaryButton';
 import {useDispatch} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {FlashMessage, ResetPass} from '../../redux/Actions/AuthAction';
 import {PRIMARYCOLOR} from '../../../assets/colors/colors';
-import {appLogo, greentick, tickLogo, yellowLine} from '../../../assets/images/images';
-import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
+import {
+  appLogo,
+  greentick,
+  tickLogo,
+  yellowLine,
+} from '../../../assets/images/images';
+import {PoppinsRegular, PoppinsSemiBold} from '../../../assets/fonts/Fonts';
 import Eyee from '../../../assets/images/eyee';
 import EyeeSlash from '../../../assets/images/noteyee'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -31,7 +35,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 const ResetPassword = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [email, setEmail] = useState('shahud@plumtreegroup.net');
+  const [email, setEmail] = useState(props.route.params.email);
   const [newPassword, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -50,7 +54,6 @@ const ResetPassword = props => {
     }
   };
 
-
   const handlePasswordVisibility1 = () => {
     if (rightIcon1 === true) {
       setRightIcon1(false);
@@ -61,23 +64,23 @@ const ResetPassword = props => {
     }
   };
 
-
-
   const submitLogin = () => {
-    if(email,newPassword,confirmPassword){
-    const newObj = {
-      email,
-      newPassword,
-      confirmPassword,
-    };
-    console.log(newObj, 'newObj');
-    dispatch(ResetPass(newObj, setModalVisible));
-  }else{
-    FlashMessage({
-      message: "Must fill all the fields",
-      type: 'danger',
-    });
-  }
+    if ((email, newPassword, confirmPassword)) {
+      const newObj = {
+        email,
+        newPassword,
+        confirmPassword,
+      };
+      console.log( 'newObj',props);
+      props.route.params.firstTime
+        ? dispatch(ResetPass(newObj, setModalVisible,true))
+        : dispatch(ResetPass(newObj, setModalVisible));
+    } else {
+      FlashMessage({
+        message: 'Must fill all the fields',
+        type: 'danger',
+      });
+    }
   };
 
   const refRBSheet = useRef();
@@ -141,7 +144,7 @@ const ResetPassword = props => {
               style={styles.inputField}
               onChangeText={setPassword}
               value={newPassword}
-              placeholder=".........................."
+              placeholder="*********************"
               keyboardType="default"
               secureTextEntry={passwordVisibility}
               name={'Password'}
@@ -149,48 +152,32 @@ const ResetPassword = props => {
             <TouchableOpacity
               onPress={handlePasswordVisibility}
               style={styles.firsteye}>
-                <View style={{marginTop:verticalScale(5),marginRight:scale(10)}}>
-
-              {rightIcon ? (
-                <Eyee/>
-                
-                ) : (
-                  <EyeeSlash/>
-                  
-                  )}
-                  </View>
-              
+              <View
+                style={{marginTop: verticalScale(5), marginRight: scale(10)}}>
+                {rightIcon ? <Eyee /> : <EyeeSlash />}
+              </View>
             </TouchableOpacity>
             <View style={{height: hp('4%')}} />
 
             <Text style={styles.confirmPassword}>Confirm Password</Text>
-            <View  />
+            <View />
             <View>
               <TextInput
                 style={styles.inputField}
                 onChangeText={setConfirmPassword}
                 value={confirmPassword}
-                placeholder="..........................."
+                placeholder="*********************"
                 keyboardType="default"
                 secureTextEntry={passwordVisibility1}
                 name={'Confirm Password'}
-                />
+              />
               <TouchableOpacity
-
-onPress={handlePasswordVisibility1}
-style={styles.eye}>
-                  <View style={{marginTop:verticalScale(5),marginRight:scale(10)}}>
-
-
-                {rightIcon1 ? (
-                  <Eyee/>
-                  ) : (
-                    <EyeeSlash/>
-                    
-                    )}
-                    </View>
-
-
+                onPress={handlePasswordVisibility1}
+                style={styles.eye}>
+                <View
+                  style={{marginTop: verticalScale(5), marginRight: scale(10)}}>
+                  {rightIcon1 ? <Eyee /> : <EyeeSlash />}
+                </View>
               </TouchableOpacity>
             </View>
             <View style={{height: hp('2%')}} />
@@ -203,47 +190,19 @@ style={styles.eye}>
               backgroundColor="#2B2F86"
               color="white"
               onPress={submitLogin}
-              />
+            />
           </View>
         </View>
-        <SuccessModaal source={tickLogo} successText={'Password Changed Successfully'} backgroundButtonColor='#2B2F86' buttonTitle={'Go Back To Login'}  visible={modalVisible} setVisible={setModalVisible} />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</ScrollView>
-
-
-
-      </RBSheet>
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* </ScrollView> */}
+        <SuccessModaal
+          source={tickLogo}
+          successText={'Password Changed Successfully'}
+          backgroundButtonColor="#2B2F86"
+          buttonTitle={'Go Back To Login'}
+          visible={modalVisible}
+          setVisible={setModalVisible}
+        />
+        {/* </KeyboardAwareScrollView> */}
+      </ScrollView>
     </View>
   );
 };
@@ -274,7 +233,7 @@ const styles = StyleSheet.create({
   resetPasswordText: {
     alignSelf: 'flex-start',
     // fontWeight: 'bold',
-    fontFamily:PoppinsSemiBold,
+    fontFamily: PoppinsSemiBold,
     color: 'black',
     fontSize: moderateScale(24),
     paddingHorizontal: scale(25),
@@ -291,8 +250,8 @@ const styles = StyleSheet.create({
   confirmPassword: {
     color: 'black',
     marginLeft: scale(10),
-    fontFamily:PoppinsRegular,
-    fontSize:moderateScale(14)
+    fontFamily: PoppinsRegular,
+    fontSize: moderateScale(14),
   },
 
   firsteye: {
@@ -305,10 +264,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     width: wp('90%'),
     backgroundColor: '#F5F5F5',
-    marginHorizontal:scale(5),
+    marginHorizontal: scale(5),
     borderRadius: moderateScale(40),
     paddingLeft: scale(20),
-    
   },
 
   eye: {

@@ -15,17 +15,12 @@ import Header from '../../components/Header/header';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { useRef } from 'react';
 import { ProgressBar, MD3Colors } from 'react-native-paper';
-import Check from '../../../assets/images/Check'
-import Awardd from '../../../assets/images/Awardd'
-
+import Check from '../../../assets/images/Check';
+import Awardd from '../../../assets/images/Awardd';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Button from '../../components/Button';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import {
-
-  notiLogo,
-  timeLogo,
-} from '../../../assets/images/images';
+import {notiLogo, timeLogo} from '../../../assets/images/images';
 import { ButtonColor } from '../../../assets/colors/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { GOALS, USER } from '../../redux/Reducers/AuthReducer';
@@ -38,6 +33,7 @@ import {
   PoppinsRegular,
   PoppinsSemiBold,
 } from '../../../assets/fonts/Fonts';
+import {PatchUserFirstTime} from '../../redux/Actions/AuthAction';
 const PersonalGoals = () => {
   const user =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWh1ZEBwbHVtdHJlZWdyb3VwLm5ldCIsImlhdCI6MTY2NDU2NzExNSwiZXhwIjoxNjk2MTAzMTE1fQ.bG940Pi5-Tf6CX4AMxLSZ2vLHZJr3XfgkBsIRvtkNeA';
@@ -45,60 +41,32 @@ const PersonalGoals = () => {
   const navigation = useNavigation();
   const [show, setShow] = useState(true);
   const [num, setNum] = useState(0);
-
   const refRBSheet = useRef();
   const height = Dimensions.get('screen').height;
+  const userData = useSelector(USER);
   let goalsData = useSelector(GOALS);
   goalsData.reverse();
   console.log('goalsData', goalsData[0]?.dueDate.split('T')[0].split('-'));
   const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    refRBSheet.current.open();
-  }, []);
 
-  if (num === 0) {
-    goalsData.forEach((e, i) => {
-      let newDate = e.dueDate.split('T')[0].split('-');
-      newDate[1] === '01'
-        ? (newDate[1] = 'Jan')
-        : newDate[1] === '02'
-          ? (newDate[1] = 'Feb')
-          : newDate[1] === '03'
-            ? (newDate[1] = 'Mar')
-            : newDate[1] === '04'
-              ? (newDate[1] = 'Apr')
-              : newDate[1] === '05'
-                ? (newDate[1] = 'May')
-                : newDate[1] === '06'
-                  ? (newDate[1] = 'Jun')
-                  : newDate[1] === '07'
-                    ? (newDate[1] = 'Jul')
-                    : newDate[1] === '08'
-                      ? (newDate[1] = 'Aug')
-                      : newDate[1] === '09'
-                        ? (newDate[1] = 'Sep')
-                        : newDate[1] === '10'
-                          ? (newDate[1] = 'Oct')
-                          : newDate[1] === '11'
-                            ? (newDate[1] = 'Nov')
-                            : newDate[1] === '12'
-                              ? (newDate[1] = 'Dec')
-                              : null;
-      goalsData[i].dueDate = newDate[2] + ' ' + newDate[1] + ',' + newDate[0];
-    });
-    setNum(1);
-  }
-
-  console.log('working', goalsData[0]?.dueDate);
   const data = goalsData;
 
   goalsData = data.filter(e => e.isCompleted === false);
 
   const laptop = data.filter(e => e.isCompleted === true);
 
-  console.log('laptop', laptop);
+  userData.firstTimeGoal && useEffect(() => {
+    refRBSheet.current.open();
+  }, []);
 
-  console.log('userrr', user.token);
+  const rbsheetClose = () => {
+    const obj = {
+      firstTimeGoal: false,
+    };
+    dispatch(PatchUserFirstTime(obj, userData.id));
+    refRBSheet.current.close();
+  };
+
   useFocusEffect(
     useCallback(() => {
       setShow(true);
@@ -128,8 +96,7 @@ const PersonalGoals = () => {
           />
         </View>
 
-
-        {show ? (
+        {show  ? (
           <>
             <Text style={styles.personalText}>Personal Goals</Text>
             <FlatList
@@ -158,14 +125,13 @@ const PersonalGoals = () => {
                         color={'black'}
                       />
 
-                      {/* <Image style={styles.loadingline} source={loading} /> */}
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
+                        {/* <Image style={styles.loadingline} source={loading} /> */}
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+              />
           </>
-
         ) : (
           <FlatList
             style={styles.flatListCompleted}
@@ -192,7 +158,8 @@ const PersonalGoals = () => {
           />
         )}
 
-        <RBSheet
+     { userData.firstTimeGoal &&  <RBSheet
+          isVisible={userData.firstTimeGoal}
           ref={refRBSheet}
           closeOnDragDown={true}
           closeOnPressMask={false}
@@ -230,10 +197,10 @@ const PersonalGoals = () => {
             <Button
               title={'Lets Go'}
               buttonStyle={styles.button}
-              onPress={() => refRBSheet.current.close()}
+              onPress={() => rbsheetClose()}
             />
           </View>
-        </RBSheet>
+        </RBSheet>}
       </ScrollView>
       </View>
 

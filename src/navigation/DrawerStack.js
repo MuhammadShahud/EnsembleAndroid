@@ -9,7 +9,6 @@ import {Image} from 'react-native';
 import {
   fun,
   goals,
-  notiLogo,
   people,
   profDev,
   resource,
@@ -27,15 +26,56 @@ import Teams from '../screens/Teams/teams';
 import PersonalGoals from '../screens/Goals/PersonalGoals';
 import Welcome from '../screens/notification/Welcome';
 import UpdateProfile from '../screens/Goals/UpdateProfile';
-import People from '../../assets/images/PEOPLE'
-
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/home/home';
-import { AuthStack } from './MainStack';
+import Splash from '../screens/splash/Splash';
+import Login from '../screens/login/login';
+import VerifyEmail from '../screens/login/VerifyEmail';
+import VerificationCode from '../screens/login/VerificationCode';
+import ResetPassword from '../screens/login/ResetPassword';
 
 
 const Drawer = createDrawerNavigator();
 const HomeTab = createNativeStackNavigator();
+const Auth = createNativeStackNavigator();
+
+
+export const AuthStack = () => {
+  return (
+    <Auth.Navigator
+      initialRouteName="splash"
+      headerMode="none"
+      options={{
+        animationEnabled: false,
+      }}>
+      <Auth.Screen
+        name="splash"
+        component={Splash}
+        options={{headerShown: false}}
+      />
+      <Auth.Screen
+        name="login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+      <Auth.Screen
+        name="verifyemail"
+        component={VerifyEmail}
+        options={{headerShown: false}}
+      />
+      <Auth.Screen
+        name="verificationcode"
+        component={VerificationCode}
+        options={{headerShown: false}}
+      />
+      <Auth.Screen
+        name="resetpassword"
+        component={ResetPassword}
+        options={{headerShown: false}}
+      />
+    </Auth.Navigator>
+  );
+};
 
 export const HomeStack = () => {
   return (
@@ -104,6 +144,11 @@ const DrawerStack = () => {
       <Drawer.Screen
         name="surveysuceed"
         component={SurveySuceed}
+        options={{headerShown: false}}
+      />
+       <Drawer.Screen
+        name="Login"
+        component={Login}
         options={{headerShown: false}}
       />
       <Drawer.Screen

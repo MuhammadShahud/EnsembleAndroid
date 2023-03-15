@@ -11,14 +11,15 @@ import {
 } from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import { PoppinsSemiBold } from '../../../assets/fonts/Fonts';
-import { greentick, tickLogo } from '../../../assets/images/images';
 import PrimaryButton from '../PrimaryButton';
 import CircleCheck from '../../../assets/images/CircleCheck'
 const SuccessModaal = props => {
   const navigation = useNavigation();
   const submitLogin = () => {
     props.setVisible(!props.visible);
-    navigation.navigate('drawer');
+    props.successText === 'Password Changed Successfully'?
+    navigation.navigate('login'):
+    navigation.navigate('drawer')
   };
   return (
     <View style={styles.centeredView}>

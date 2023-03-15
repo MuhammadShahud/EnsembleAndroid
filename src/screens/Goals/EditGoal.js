@@ -16,18 +16,13 @@ import AdIcon from '../../../assets/images/AdIcon'
 import Header from '../../components/Header/header';
 import Footer from '../../components/footer/Footer';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import InputField from '../../components/Input Fields/InputField';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { ButtonColor } from '../../../assets/colors/colors';
 import GoalUpdateModaal from '../../components/Modaal/GoalUpdateModaal';
-import { addIcon, cross } from '../../../assets/images/images';
 import { useDispatch, useSelector } from 'react-redux';
 import { PatchGoal } from '../../redux/Actions/AuthAction';
 import { PoppinsMedium, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { USER } from '../../redux/Reducers/AuthReducer';
 
 const EditGoal = props => {
@@ -60,10 +55,11 @@ const EditGoal = props => {
     });
     goal.steps = array;
     goal.goal = goalInput;
-    console.log('indexEnd5', goal);
+    console.log('indexEnd5', goal._id);
+    delete goal.__v
 
     if (noDate === true) {
-      dispatch(PatchGoal(goal, navigation, null, user, goal.id, setVisible, userData.id))
+      dispatch(PatchGoal(goal, navigation, null, user, goal._id, setVisible, userData.id))
 
     } else {
       navigation.navigate('calender', { goal, edit: true });

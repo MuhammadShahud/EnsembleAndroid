@@ -4,7 +4,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {PRIMARYCOLOR} from '../../../assets/colors/colors';
-import { PoppinsBold, PoppinsRegular } from '../../../assets/fonts/Fonts';
+import {PoppinsBold, PoppinsRegular} from '../../../assets/fonts/Fonts';
 
 export const style = StyleSheet.create({
   BackHeaderBG: {
@@ -23,7 +23,7 @@ export const style = StyleSheet.create({
   companyName: {
     color: 'black',
     fontSize: wp('4%'),
-    fontFamily:PoppinsBold,
+    fontFamily: PoppinsBold,
     textAlign: 'left',
   },
   halfHeader: {
@@ -32,21 +32,23 @@ export const style = StyleSheet.create({
   },
   drawerTabs: {
     flexDirection: 'row',
-  alignItems:'center',
+    alignItems: 'center',
     paddingLeft: wp('4%'),
-    marginTop:hp('3%')
+    marginTop: hp('3%'),
   },
   tabImage: {
     marginRight: wp('4%'),
-    justifyContent:'center',
-    alignItems:'center',
-    height:'8%',
-    width:'8%'
-   
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '8%',
+    width: '8%',
   },
   tabText: {
     fontSize: wp('4.4%'),
-    fontFamily:PoppinsRegular,
-    color:'#1B1B1B'
-  }
+    fontFamily: PoppinsRegular,
+    color: '#1B1B1B',
+  },
+  greyOut: {
+    color: '#B8B8B8',
+  },
 });

@@ -5,10 +5,7 @@ import {COMPANY, USER} from '../../redux/Reducers/AuthReducer';
 import {style} from './homeStyle';
 import Header from '../../components/Header/header';
 import {
-  pp,
-  task,
-  medal,
-  findPeople,
+ 
   notiLogo,
 } from '../../../assets/images/images';
 import {
@@ -25,6 +22,7 @@ import {
 } from '../../redux/Actions/AuthAction';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import messaging from '@react-native-firebase/messaging';
+import axios from 'axios';
 
 export default function Home() {
   const userData = useSelector(USER);
@@ -34,13 +32,42 @@ export default function Home() {
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWh1ZEBwbHVtdHJlZWdyb3VwLm5ldCIsImlhdCI6MTY2NDU2NzExNSwiZXhwIjoxNjk2MTAzMTE1fQ.bG940Pi5-Tf6CX4AMxLSZ2vLHZJr3XfgkBsIRvtkNeA';
 
+    const sendFcmToken = async () => {
+    
+      try {
+        await messaging().registerDeviceForRemoteMessages();
+        const token = await messaging().getToken();
+        const obj = {
+          token : token,
+          companyId: company.id
+        }
+
+        await axios.patch(
+          `https://ensemble-backendd.herokuapp.com/api/noti/token/${userData.id}`,
+          obj,
+        ).then((r)=>{
+          console.log('workingggggggg',r)
+
+        })
+      } catch (err) {
+        //Do nothing
+        console.log("errrorrrr",err);
+        return;
+      }
+    };
+  
+    useEffect(() => {
+      sendFcmToken();
+      
+    }, []);
+
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
 
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log(
         'Notification caused app to open from background state:',
-        remoteMessage.notification,
+        remoteMessage.data.type,
       );
       remoteMessage.data.type === 'Surveys' ? dispatch(GetSurveys()) : null;
 
@@ -72,7 +99,7 @@ export default function Home() {
       dispatch(GetCompany(userData?.companyId));
       dispatch(GetTeam(userData?.teamId));
       dispatch(GetSurveys(userData.companyId));
-      dispatch(GetNoti());
+      dispatch(GetNoti(company.id));
     }, []),
   );
 

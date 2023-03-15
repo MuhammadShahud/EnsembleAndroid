@@ -74,7 +74,7 @@ const EditButtons = props => {
         </View>
 
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          {array.map((v, i) => (
+          {array? array.map((v, i) => (
             <View style={styles.button}>
               <Text style={styles.text}>{v}</Text>
 
@@ -86,7 +86,7 @@ const EditButtons = props => {
                 </TouchableOpacity>
               ) : null}
             </View>
-          ))}
+          )): null}
 
           {props.addIcon && !show ? (
             <TouchableOpacity

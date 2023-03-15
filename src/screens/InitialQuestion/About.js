@@ -233,6 +233,7 @@ const About = props => {
     const obj = {
       questions,
       profileData,
+      firstTimeQuestion:false
     };
 
     dispatch(PatchUser(obj, navigation, 'camera', userData?.id));
