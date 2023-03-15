@@ -8,27 +8,27 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SetGoals from '../../components/Goals/SetGoals';
 import OngoingCompleted from '../../components/Goals/OngoingCompleted';
 import Header from '../../components/Header/header';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {useRef} from 'react';
-import {ProgressBar, MD3Colors} from 'react-native-paper';
+import { useRef } from 'react';
+import { ProgressBar, MD3Colors } from 'react-native-paper';
 import Check from '../../../assets/images/Check'
 import Awardd from '../../../assets/images/Awardd'
 
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Button from '../../components/Button';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
 
   notiLogo,
   timeLogo,
 } from '../../../assets/images/images';
-import {ButtonColor} from '../../../assets/colors/colors';
-import {useDispatch, useSelector} from 'react-redux';
-import {GOALS, USER} from '../../redux/Reducers/AuthReducer';
+import { ButtonColor } from '../../../assets/colors/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { GOALS, USER } from '../../redux/Reducers/AuthReducer';
 import {
   FiraSansBold,
   FiraSansRegular,
@@ -62,28 +62,28 @@ const PersonalGoals = () => {
       newDate[1] === '01'
         ? (newDate[1] = 'Jan')
         : newDate[1] === '02'
-        ? (newDate[1] = 'Feb')
-        : newDate[1] === '03'
-        ? (newDate[1] = 'Mar')
-        : newDate[1] === '04'
-        ? (newDate[1] = 'Apr')
-        : newDate[1] === '05'
-        ? (newDate[1] = 'May')
-        : newDate[1] === '06'
-        ? (newDate[1] = 'Jun')
-        : newDate[1] === '07'
-        ? (newDate[1] = 'Jul')
-        : newDate[1] === '08'
-        ? (newDate[1] = 'Aug')
-        : newDate[1] === '09'
-        ? (newDate[1] = 'Sep')
-        : newDate[1] === '10'
-        ? (newDate[1] = 'Oct')
-        : newDate[1] === '11'
-        ? (newDate[1] = 'Nov')
-        : newDate[1] === '12'
-        ? (newDate[1] = 'Dec')
-        : null;
+          ? (newDate[1] = 'Feb')
+          : newDate[1] === '03'
+            ? (newDate[1] = 'Mar')
+            : newDate[1] === '04'
+              ? (newDate[1] = 'Apr')
+              : newDate[1] === '05'
+                ? (newDate[1] = 'May')
+                : newDate[1] === '06'
+                  ? (newDate[1] = 'Jun')
+                  : newDate[1] === '07'
+                    ? (newDate[1] = 'Jul')
+                    : newDate[1] === '08'
+                      ? (newDate[1] = 'Aug')
+                      : newDate[1] === '09'
+                        ? (newDate[1] = 'Sep')
+                        : newDate[1] === '10'
+                          ? (newDate[1] = 'Oct')
+                          : newDate[1] === '11'
+                            ? (newDate[1] = 'Nov')
+                            : newDate[1] === '12'
+                              ? (newDate[1] = 'Dec')
+                              : null;
       goalsData[i].dueDate = newDate[2] + ' ' + newDate[1] + ',' + newDate[0];
     });
     setNum(1);
@@ -108,6 +108,10 @@ const PersonalGoals = () => {
 
   return (
     <View style={styles.mainView}>
+      <View>
+
+
+
       <Header source={notiLogo} />
       <ScrollView>
         <View>
@@ -125,41 +129,41 @@ const PersonalGoals = () => {
         </View>
 
 
-        {show? (
+        {show ? (
           <>
-                  <Text style={styles.personalText}>Personal Goals</Text>
-          <FlatList
-            style={styles.flatList}
-            data={goalsData}
-            keyExtractor={item => item._id}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  style={styles.box}
-                  onPress={() => navigation.navigate('duedate', {goal: item})}>
-                  <View style={styles.imageView}>
-                    {/* <Image source={awardLogo} /> */}
-                    <Awardd/>
-                  </View>
-                  <View style={{width:'60%'}}>
-                    <Text style={styles.title}>{item?.goal}</Text>
-
-                    <View style={styles.dateView}>
-                      <Image source={timeLogo} />
-                      <Text style={styles.date}>{item?.dueDate}</Text>
+            <Text style={styles.personalText}>Personal Goals</Text>
+            <FlatList
+              style={styles.flatList}
+              data={goalsData}
+              keyExtractor={item => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.box}
+                    onPress={() => navigation.navigate('duedate', { goal: item })}>
+                    <View style={styles.imageView}>
+                      {/* <Image source={awardLogo} /> */}
+                      <Awardd />
                     </View>
-                    <ProgressBar
-                      style={styles.progressBar}
-                      progress={item.progress / 100}
-                      color={'black'}
-                    />
+                    <View style={{ width: '60%' }}>
+                      <Text style={styles.title}>{item?.goal}</Text>
 
-                    {/* <Image style={styles.loadingline} source={loading} /> */}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
+                      <View style={styles.dateView}>
+                        <Image source={timeLogo} />
+                        <Text style={styles.date}>{item?.dueDate}</Text>
+                      </View>
+                      <ProgressBar
+                        style={styles.progressBar}
+                        progress={item.progress / 100}
+                        color={'black'}
+                      />
+
+                      {/* <Image style={styles.loadingline} source={loading} /> */}
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+            />
           </>
 
         ) : (
@@ -167,14 +171,14 @@ const PersonalGoals = () => {
             style={styles.flatListCompleted}
             data={laptop}
             keyExtractor={item => item.id}
-            renderItem={({item}) => {
+            renderItem={({ item }) => {
               return (
                 <View
                   style={styles.laptopBox}
-                  // onPress={() => navigation.navigate('duedate')}
+                // onPress={() => navigation.navigate('duedate')}
                 >
                   <View style={styles.checkView}>
-                    <Check/>
+                    <Check />
                   </View>
                   <View>
                     <Text style={styles.laptopTitle}>{item?.goal}</Text>
@@ -230,11 +234,13 @@ const PersonalGoals = () => {
             />
           </View>
         </RBSheet>
+      </ScrollView>
+      </View>
+
         <View style={styles.footerView}>
           <Text style={styles.powered}>Powered by</Text>
           <Text style={styles.ensemble}>ENSEMBLE</Text>
         </View>
-      </ScrollView>
     </View>
   );
 };
@@ -244,6 +250,8 @@ export default PersonalGoals;
 const styles = StyleSheet.create({
   mainView: {
     flex: 1,
+    justifyContent:'space-between'
+    
   },
   personalText: {
     color: 'black',
@@ -268,12 +276,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontFamily: FiraSansSemiBold,
     paddingTop: verticalScale(5),
+    // textAlign: 'center',
     flex: 1,
   },
   date: {
     color: 'black',
     paddingLeft: scale(8),
     fontFamily: FiraSansRegular,
+    fontSize: moderateScale(12)
   },
   dateView: {
     flexDirection: 'row',

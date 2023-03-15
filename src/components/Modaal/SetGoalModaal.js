@@ -102,10 +102,12 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(10),
     // alignSelf: 'center',
     marginBottom: verticalScale(40),
-    width:'54%',
-    height:'54%',
+    // width:'50%',
+    // height:'50%',
+    width:150,
+    height:150,
     backgroundColor:'rgba(43, 47, 134, 0.04)',
-    borderRadius:moderateScale(200)
+    borderRadius:moderateScale(500)
   },
   setButtton: {
     backgroundColor: ButtonColor,

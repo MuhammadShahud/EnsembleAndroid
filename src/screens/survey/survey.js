@@ -73,6 +73,9 @@ const Survey = () => {
   console.log('laptop', laptop, userData?.completedSurveys);
   return (
     <View style={styles.mainView}>
+
+      <View>
+
       <ScrollView>
         <View>
           <Header source={notiLogo} />
@@ -99,9 +102,9 @@ const Survey = () => {
                 renderItem={({item}) => {
                   return (
                     <TouchableOpacity
-                      style={styles.flatView}
-                      onPress={() =>
-                        navigation.navigate('review', {survey: item})
+                    style={styles.flatView}
+                    onPress={() =>
+                      navigation.navigate('review', {survey: item})
                       }>
                       {/* <Image style={styles.starImg} source={star} /> */}
                       <View style={styles.starImg}>
@@ -121,7 +124,7 @@ const Survey = () => {
               renderItem={({item}) => {
                 return (
                   <TouchableOpacity
-                    style={styles.laptopBox}
+                  style={styles.laptopBox}
                     // onPress={() => navigation.navigate('duedate')}
                   >
                     {/* <Image style={styles.img1} source={checkMark} /> */}
@@ -133,7 +136,7 @@ const Survey = () => {
                 );
               }}
             />
-          )}
+            )}
 
           <RBSheet
             ref={refRBSheet}
@@ -171,15 +174,16 @@ const Survey = () => {
                 title={'Lets Go'}
                 buttonStyle={styles.button}
                 onPress={() => refRBSheet.current.close()}
-              />
+                />
             </View>
           </RBSheet>
         </View>
+      </ScrollView>
+                </View>
         <View style={styles.footerView}>
           <Text style={styles.powered}>Powered by</Text>
           <Text style={styles.ensemble}>ENSEMBLE</Text>
         </View>
-      </ScrollView>
     </View>
   );
 };

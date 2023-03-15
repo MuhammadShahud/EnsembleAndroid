@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
   SetGoalText: {
     color: 'black',
     fontFamily:PoppinsLight,
-    marginTop:verticalScale(-10)
+    marginTop:verticalScale(-10),
+    fontSize:moderateScale(10)
   },
   GoalView: {
   },

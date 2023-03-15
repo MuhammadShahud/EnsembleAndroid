@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useRef} from 'react'
 import {
   Image,
   TextInput,
@@ -20,9 +20,20 @@ import { FlashMessage, ForgetPass } from '../../redux/Actions/AuthAction'
 import { PRIMARYCOLOR } from '../../../assets/colors/colors'
 import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import RBSheet from "react-native-raw-bottom-sheet";
 
 
 const VerifyEmail = () => {
+
+  const refRBSheet = useRef();
+
+
+  useEffect(() => {
+
+    refRBSheet.current.open()
+
+  }, [])
+
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const [email, setEmail] = useState('')
@@ -49,14 +60,38 @@ const VerifyEmail = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+
+
       <View style={styles.logo}>
         <Image style={styles.logoStyle} resizeMode="contain" source={appLogo} />
 
       </View>
 
-    {/* <KeyboardAwareScrollView enableOnAndroid={true}> */}
+        <RBSheet
+        ref={refRBSheet}
+        height='470'
+        closeOnDragDown={false}
+        closeOnPressMask={false}
+        closeOnPressBack={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          container:{
+            borderTopLeftRadius:moderateScale(40),
+            borderTopRightRadius:moderateScale(40),
 
-      <ScrollView contentContainerStyle={{height:'180%'}}>
+
+          },
+          draggableIcon: {
+            backgroundColor: "#000"
+          }
+        }}
+      >
+
+
+
+<ScrollView contentContainerStyle={{height:'180%'}}>
         <View style={styles.inputContainer}>
 
           <View>
@@ -102,9 +137,49 @@ const VerifyEmail = () => {
             />
           </View>
         </View>
-      {/* </KeyboardAwareScrollView> */}
+
+
+
+
+</ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </RBSheet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </ScrollView>
-    </ScrollView>
   )
 }
 

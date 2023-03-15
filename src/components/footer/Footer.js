@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         marginHorizontal:scale(20),
-        marginBottom:verticalScale(15)
+        marginBottom:verticalScale(15),
+        // flex:1
 
     },
     arrow:{
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     },
     ensemble:{
       // fontWeight:'bold',
-      color:'#8C8C8C',
+      color:'black',
       fontSize:moderateScale(20),
       fontFamily:PoppinsSemiBold
     },
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
       
     },
     powered:{
-      color:'#8C8C8C',
+      color:'black',
       fontFamily:PoppinsRegular,
       marginBottom:verticalScale(-5),
     }

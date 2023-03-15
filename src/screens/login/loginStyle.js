@@ -41,7 +41,8 @@ export const style = StyleSheet.create({
     borderTopEndRadius: wp('10%'),
     flex: 1,
     elevation:3,
-    zIndex:3
+    zIndex:3,
+   
   },
   forgotWidth: {
     width: '90%',

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useState,useRef,useEffect} from 'react';
 import SuccessModaal from '../../components/Modaal/SuccessModaal';
 import {
   Image,
@@ -25,6 +25,7 @@ import { PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts';
 import Eyee from '../../../assets/images/eyee';
 import EyeeSlash from '../../../assets/images/noteyee'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RBSheet from "react-native-raw-bottom-sheet";
 
 
 const ResetPassword = props => {
@@ -79,14 +80,47 @@ const ResetPassword = props => {
   }
   };
 
+  const refRBSheet = useRef();
+
+
+  useEffect(() => {
+
+    refRBSheet.current.open()
+
+  }, [])
+
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
         <Image style={styles.logoStyle} resizeMode="contain" source={appLogo} />
       </View>
 
-      <ScrollView contentContainerStyle={{height:'150%'}}>
-      {/* <KeyboardAwareScrollView> */}
+        <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={false}
+        closeOnPressMask={false}
+        closeOnPressBack={false}
+
+        height='550'
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          container:{
+            borderTopLeftRadius:moderateScale(40),
+            borderTopRightRadius:moderateScale(40),
+
+
+          },
+          draggableIcon: {
+            backgroundColor: "#000"
+          }
+        }}
+      >
+
+
+
+<ScrollView contentContainerStyle={{height:'150%'}}>
       
         <View style={styles.inputContainer}>
           <View>
@@ -173,9 +207,43 @@ style={styles.eye}>
           </View>
         </View>
         <SuccessModaal source={tickLogo} successText={'Password Changed Successfully'} backgroundButtonColor='#2B2F86' buttonTitle={'Go Back To Login'}  visible={modalVisible} setVisible={setModalVisible} />
-              {/* </KeyboardAwareScrollView> */}
-              
-      </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ScrollView>
+
+
+
+      </RBSheet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* </ScrollView> */}
     </View>
   );
 };
@@ -208,7 +276,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     fontFamily:PoppinsSemiBold,
     color: 'black',
-    fontSize: wp('6%'),
+    fontSize: moderateScale(24),
     paddingHorizontal: scale(25),
     marginTop: verticalScale(30),
   },
@@ -218,6 +286,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(25),
     paddingTop: verticalScale(10),
     lineHeight: verticalScale(18),
+    fontSize:moderateScale(14)
   },
   confirmPassword: {
     color: 'black',

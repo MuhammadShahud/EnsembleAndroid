@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import colors, {PRIMARYCOLOR} from '../../../assets/colors/colors';
 import {Image, Text, View, StyleSheet, ScrollView} from 'react-native';
 import {
@@ -24,6 +24,8 @@ import {
   PoppinsSemiBoldItalic,
 } from '../../../assets/fonts/Fonts';
 import { FlashMessage } from '../../redux/Actions/AuthAction';
+import RBSheet from "react-native-raw-bottom-sheet";
+
 
 const VerificationCode = props => {
   const dispatch = useDispatch();
@@ -59,13 +61,52 @@ const VerificationCode = props => {
       });;
   };
 
+  const refRBSheet = useRef();
+
+
+  useEffect(() => {
+
+    refRBSheet.current.open()
+
+  }, [])
+
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
         <Image style={styles.logoStyle} resizeMode="contain" source={appLogo} />
       </View>
 
-      <ScrollView contentContainerStyle={{height: '170%'}}>
+   
+
+
+
+        <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={false}
+        closeOnPressMask={false}
+        closeOnPressBack={false}
+
+        height='380'
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          container:{
+            borderTopLeftRadius:moderateScale(40),
+            borderTopRightRadius:moderateScale(40),
+
+
+          },
+          draggableIcon: {
+            backgroundColor: "#000"
+          }
+        }}
+      >
+
+
+
+
+<ScrollView contentContainerStyle={{height: '170%'}}>
         {/* <KeyboardAwareScrollView enableOnAndroid={true}> */}
 
         <View style={styles.inputContainer}>
@@ -109,7 +150,31 @@ const VerificationCode = props => {
             />
           </View>
         </View>
-      </ScrollView>
+
+
+
+
+</ScrollView>
+
+
+      </RBSheet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* </ScrollView> */}
       {/* </KeyboardAwareScrollView> */}
     </View>
   );

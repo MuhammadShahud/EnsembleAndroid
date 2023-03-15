@@ -102,7 +102,7 @@ const Calen = (props) => {
 
           <View style={styles.buttonContainer}>
             <Button title='NO' buttonStyle={styles.button} />
-            <Button title='YES' buttonStyle={styles.button} />
+            <Button title='YES' buttonStyle={styles.button1} />
           </View>
           <Text style={styles.reminder}>You’ll get reminder notification a day before goal deadline</Text>
         </View>
@@ -167,16 +167,40 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsSemiBold,
     fontSize: moderateScale(15),
     textAlign: 'center',
-    marginHorizontal:scale(2)
+    marginRight:scale(5)
     // paddingTop:verticalScale(10)
 
   },
+  button1: {
+    // backgroundColor:'#2B2F86',
+    backgroundColor: 'white',
+    color: ButtonColor,
+    borderColor: ButtonColor,
+    borderWidth: 1,
+    // width: '70%',
+    paddingHorizontal: scale(60),
+    paddingTop: verticalScale(7),
+    paddingBottom: verticalScale(2),
+    alignSelf: 'center',
+    borderRadius: moderateScale(20),
+    // fontWeight: 'bold',
+    fontFamily: PoppinsSemiBold,
+    fontSize: moderateScale(15),
+    textAlign: 'center',
+    // marginHorizontal:scale(2)
+    marginLeft:scale(5)
+    // paddingTop:verticalScale(10)
+
+  },
+
+
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     // alignSelf:'center',
     marginTop: verticalScale(10),
-    marginHorizontal:scale(20)
+    // marginHorizontal:scale(20),
+
   },
   reminder: {
     marginTop: verticalScale(10),

@@ -12,7 +12,7 @@ export const style = StyleSheet.create({
   BackHeaderBG: {
     backgroundColor:'#ffff',
    paddingHorizontal:wp('5%'),
-   paddingVertical:hp('4%'),
+   paddingVertical:hp('2%'),
     borderRadius:moderateScale(16),
     flexWrap:'wrap',
   },
@@ -40,7 +40,7 @@ export const style = StyleSheet.create({
   },
   text2:{
       fontFamily: PoppinsRegular,
-      fontSize:moderateScale(9),
+      fontSize:moderateScale(12),
       color:'#1B1B1B',
       maxWidth:wp('55%'),
       

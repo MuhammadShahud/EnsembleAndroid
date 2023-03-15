@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ScrollView
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import Header from '../../components/Header/header';
@@ -96,9 +97,12 @@ const NewGoal = () => {
   };
   return (
     <View style={styles.mainView}>
-      <View>
+
         <Header />
         <DashesGoals color={1}/>
+      <ScrollView
+       contentContainerStyle={{flex:1}}
+       >
 
         <View style={styles.firstView}>
           <Text style={styles.goal}>Set a New Goal</Text>
@@ -126,7 +130,7 @@ const NewGoal = () => {
                       color="black"
                       value="first"
                       status={
-                       'unchecked'
+                        'checked'
                       }
                       onPress={() => radioValue(item.title)}
                       />
@@ -146,7 +150,7 @@ const NewGoal = () => {
               <RadioButton
                 color="black"
                 value="first"
-                status={indexes.includes() ? 'checked' : 'unchecked'}
+                status={indexes.includes() ? 'unchecked' : 'checked'}
                 onPress={() => radioValue()}
                 />
               <TextInput
@@ -174,9 +178,10 @@ const NewGoal = () => {
           )}
         </View>
 
-        <View></View>
-      </View>
-      <View>
+      </ScrollView>
+        {/* <View></View> */}
+          {/* </ScrollView> */}
+      <View style={{marginTop:verticalScale(5)}}>
         <Footer onPress={toCalendar} iconName={'chevron-right'} />
       </View>
     </View>

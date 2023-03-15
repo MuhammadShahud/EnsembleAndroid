@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsBold,
     fontSize: moderateScale(20),
     marginHorizontal: scale(20),
-    marginVertical: verticalScale(20),
+    marginVertical: verticalScale(10),
   },
   text: {
     color: 'black',
@@ -128,11 +128,14 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: moderateScale(20),
     fontFamily: PoppinsSemiBold,
+    fontSize:moderateScale(16)
+
   },
   powered: {
     color: 'black',
     fontFamily: PoppinsRegular,
     marginBottom: verticalScale(-5),
+    fontSize:moderateScale(16)
   },
   footerView: {
     marginHorizontal: scale(20),

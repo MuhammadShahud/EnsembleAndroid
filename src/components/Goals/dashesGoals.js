@@ -22,6 +22,7 @@ export default function DashesGoals(props) {
         const styles = StyleSheet.create({
           container: {
             flexDirection: 'row',
+            // flex:1,
             justifyContent: 'center',
             marginTop: verticalScale(15),
           },

@@ -40,16 +40,18 @@ export const style = StyleSheet.create({
   // fontSize:30,
   fontSize:moderateScale(25),
   color:'#1B1B1B',
-  marginTop:verticalScale(-10)
+  marginTop:verticalScale(-10),
+  width:'80%'
  },
  overview : {
   fontFamily:FiraSansBold,
-  fontSize:moderateScale(25),
+  fontSize:moderateScale(26),
   color:'#1B1B1B',
  },
  position:{
   fontFamily:PoppinsRegular,
-  color:'#1B1B1B'
+  color:'#1B1B1B',
+  fontSize:moderateScale(12)
  },
  footerView: {
   marginHorizontal: scale(5),
