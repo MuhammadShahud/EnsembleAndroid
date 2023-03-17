@@ -3,7 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {PRIMARYCOLOR} from '../../../assets/colors/colors';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {PoppinsBold, PoppinsRegular} from '../../../assets/fonts/Fonts';
 
 export const style = StyleSheet.create({
@@ -33,20 +33,23 @@ export const style = StyleSheet.create({
   drawerTabs: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
     paddingLeft: wp('4%'),
     marginTop: hp('3%'),
   },
   tabImage: {
     marginRight: wp('4%'),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '8%',
-    width: '8%',
+    height: verticalScale(19),
+    width: scale(20),
+  },
+  PDView: {
+    flex: 1,
   },
   tabText: {
     fontSize: wp('4.4%'),
     fontFamily: PoppinsRegular,
     color: '#1B1B1B',
+    flex: 1,
   },
   greyOut: {
     color: '#B8B8B8',

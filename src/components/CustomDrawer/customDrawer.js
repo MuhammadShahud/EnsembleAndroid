@@ -190,7 +190,9 @@ const CustomDrawer = props => {
               {/* <Image source={blackBriefCase}  /> */}
               <BriefCase />
             </View>
+            <View style={style.PDView}>
             <Text style={[style.tabText,style.greyOut]}>Professional Development</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -242,7 +244,7 @@ const CustomDrawer = props => {
             style={{
               fontSize: moderateScale(12),
               fontFamily: PoppinsRegular,
-              color: '#000000',
+              color: '#767676',
             }}>
             Powered by
           </Text>
@@ -250,7 +252,7 @@ const CustomDrawer = props => {
             style={{
               fontSize: moderateScale(16),
               fontFamily: PoppinsSemiBold,
-              color: '#000000',
+              color: '#767676',
             }}>
             Ensemble{' '}
           </Text>

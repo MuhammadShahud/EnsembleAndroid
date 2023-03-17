@@ -4,8 +4,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import { moderateScale,scale, verticalScale } from 'react-native-size-matters'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-import { PRIMARYCOLOR } from '../../../assets/colors/colors'
 import { FiraSansMedium, FiraSansSemiBold, PoppinsMedium, PoppinsRegular } from '../../../assets/fonts/Fonts'
 
 export const style = StyleSheet.create({
@@ -17,7 +15,8 @@ export const style = StyleSheet.create({
     flexWrap:'wrap',
   },
   box:{
-      flexDirection:'row'
+      flexDirection:'row',
+      alignItems:'center'
   },
   imageView:{
       backgroundColor:'#F1F2FF',
@@ -42,7 +41,7 @@ export const style = StyleSheet.create({
       fontFamily: PoppinsRegular,
       fontSize:moderateScale(12),
       color:'#1B1B1B',
-      maxWidth:wp('55%'),
+      maxWidth:wp('60%'),
       
   }
 })

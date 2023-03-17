@@ -4,10 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {COMPANY, USER} from '../../redux/Reducers/AuthReducer';
 import {style} from './homeStyle';
 import Header from '../../components/Header/header';
-import {
- 
-  notiLogo,
-} from '../../../assets/images/images';
+import {notiLogo} from '../../../assets/images/images';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -23,6 +20,8 @@ import {
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import messaging from '@react-native-firebase/messaging';
 import axios from 'axios';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+
 
 export default function Home() {
   const userData = useSelector(USER);
@@ -32,34 +31,33 @@ export default function Home() {
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWh1ZEBwbHVtdHJlZWdyb3VwLm5ldCIsImlhdCI6MTY2NDU2NzExNSwiZXhwIjoxNjk2MTAzMTE1fQ.bG940Pi5-Tf6CX4AMxLSZ2vLHZJr3XfgkBsIRvtkNeA';
 
-    const sendFcmToken = async () => {
-    
-      try {
-        await messaging().registerDeviceForRemoteMessages();
-        const token = await messaging().getToken();
-        const obj = {
-          token : token,
-          companyId: company.id
-        }
+  const sendFcmToken = async () => {
+    try {
+      await messaging().registerDeviceForRemoteMessages();
+      const token = await messaging().getToken();
+      const obj = {
+        token: token,
+        companyId: company.id,
+      };
 
-        await axios.patch(
+      await axios
+        .patch(
           `https://ensemble-backendd.herokuapp.com/api/noti/token/${userData.id}`,
           obj,
-        ).then((r)=>{
-          console.log('workingggggggg',r)
+        )
+        .then(r => {
+          console.log('workingggggggg', r);
+        });
+    } catch (err) {
+      //Do nothing
+      console.log('errrorrrr', err);
+      return;
+    }
+  };
 
-        })
-      } catch (err) {
-        //Do nothing
-        console.log("errrorrrr",err);
-        return;
-      }
-    };
-  
-    useEffect(() => {
-      sendFcmToken();
-      
-    }, []);
+  useEffect(() => {
+    sendFcmToken();
+  }, []);
 
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
@@ -91,7 +89,6 @@ export default function Home() {
         }
       });
   }, []);
- 
 
   useFocusEffect(
     useCallback(() => {
@@ -118,10 +115,9 @@ export default function Home() {
               source={{
                 uri: `https://ensemble-backendd.herokuapp.com/${userData?.profilePic}`,
               }}
-              style={{borderRadius: 32, height: 64, width: 64}}
+              style={{borderRadius: moderateScale(32), height: verticalScale(64), width: scale(64)}}
             />
           </View>
-          <View style={{height: hp('0%')}}></View>
           <Text style={style.position}>
             {userData?.jobTitle} | {company.companyName}{' '}
           </Text>
@@ -131,7 +127,7 @@ export default function Home() {
 
         <View>
           <Text style={style.overview}>Overview</Text>
-          <View style={{height: hp('2%')}}></View>
+          <View style={{height: hp('3%')}}></View>
           <HomeBox
             navigate="Teams"
             // image={findPeople}
@@ -139,7 +135,7 @@ export default function Home() {
             text2="Search your colleagues and get connected now "
             firstImage="aa"
           />
-          <View style={{height: hp('2%')}}></View>
+          <View style={{height: hp('3%')}}></View>
 
           <HomeBox
             navigate="Goals"
@@ -150,7 +146,7 @@ export default function Home() {
             secondImage="qqq"
           />
 
-          <View style={{height: hp('2%')}}></View>
+          <View style={{height: hp('3%')}}></View>
 
           <HomeBox
             navigate="Surveys"
@@ -160,15 +156,9 @@ export default function Home() {
             color={company.brandColor}
           />
         </View>
-        <View style={style.footerView}>
-          <Text style={style.powered}>Powered by</Text>
-          <Text style={style.ensemble}>ENSEMBLE</Text>
-        </View>
+        
       </ScrollView>
-      {/* <View style={style.footerView}>
-        <Text style={style.powered}>Powered by</Text>
-        <Text style={style.ensemble}>ENSEMBLE</Text>
-      </View> */}
+    
     </View>
   );
 }

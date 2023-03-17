@@ -4,8 +4,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-
-import { PRIMARYCOLOR } from '../../../assets/colors/colors'
 import { FiraSansBold, PoppinsBold, PoppinsLight, PoppinsRegular, PoppinsSemiBold } from '../../../assets/fonts/Fonts'
 
 export const style = StyleSheet.create({
@@ -32,16 +30,15 @@ export const style = StyleSheet.create({
  },
  morning : {
   fontFamily:PoppinsLight,
-  fontSize:moderateScale(25),
+  fontSize:moderateScale(30),
   color:'#1B1B1B'
  },
  name: {
   fontFamily:PoppinsBold,
-  // fontSize:30,
   fontSize:moderateScale(25),
   color:'#1B1B1B',
+  width:scale(258),
   marginTop:verticalScale(-10),
-  width:'80%'
  },
  overview : {
   fontFamily:FiraSansBold,

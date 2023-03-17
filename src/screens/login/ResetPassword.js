@@ -203,6 +203,7 @@ const ResetPassword = props => {
         />
         {/* </KeyboardAwareScrollView> */}
       </ScrollView>
+      </RBSheet>
     </View>
   );
 };
